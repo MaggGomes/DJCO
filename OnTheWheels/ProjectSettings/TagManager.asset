@@ -41,3 +41,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Grass
+    uniqueID: 794443589
+    locked: 0
+  - name: Dirt
+    uniqueID: 3759911045
+    locked: 0
+  - name: Roads
+    uniqueID: 267889693
+    locked: 0
+  - name: Buildings
+    uniqueID: 870412163
+    locked: 0
+  - name: Objects
+    uniqueID: 351235107
+    locked: 0
