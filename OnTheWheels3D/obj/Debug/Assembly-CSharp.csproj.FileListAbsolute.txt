@@ -1,6 +1,10 @@
 D:\DJCO\OnTheWheels3D\Temp\bin\Debug\Assembly-CSharp.dll
 D:\DJCO\OnTheWheels3D\Temp\bin\Debug\Assembly-CSharp.pdb
+D:\DJCO\OnTheWheels3D\Temp\bin\Debug\EasyRoads3Dv3.dll
+D:\DJCO\OnTheWheels3D\Temp\bin\Debug\EasyRoads3Dv3Editor.dll
 D:\DJCO\OnTheWheels3D\Temp\bin\Debug\nunit.framework.dll
+D:\DJCO\OnTheWheels3D\Temp\bin\Debug\TextMeshPro-2017.3-1.0.56-Editor.dll
+D:\DJCO\OnTheWheels3D\Temp\bin\Debug\TextMeshPro-2017.3-1.0.56-Runtime.dll
 D:\DJCO\OnTheWheels3D\Temp\bin\Debug\UnityEditor.Advertisements.dll
 D:\DJCO\OnTheWheels3D\Temp\bin\Debug\UnityEditor.Analytics.dll
 D:\DJCO\OnTheWheels3D\Temp\bin\Debug\UnityEditor.dll
