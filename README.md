@@ -11,14 +11,14 @@ The final score is defined by the player's grade and the time remaining.
 # TODO
 
 ## Car
-- <b>Controls</b>
+- **Controls**
+- **Attributes (max velocity, mass/health)**
+- Nitro
 - Camera following player ✓
 - Camera rotating on player turn ✓
-- <b>Attributes (max velocity, mass/health)</b>
-- Nitro
 
 ## Map/Terrain
-- <b>Define different terrain (grass/dirt) effects</b>
+- **Define different terrain (grass/dirt) effects**
 - Make map pretty
 
 ## Interface
@@ -27,11 +27,12 @@ The final score is defined by the player's grade and the time remaining.
 - Speed
 - Arrow indicating objective
 
-## Powerups
-- <b>Get health, get speed, etc.</b>
+## Pickables
+- **Powerups - Get health, get speed, etc.**
+- **Cheatsheets - Collectables required to finish the game.**
 
 ## AI
-- <b>Cop car (following player)</b>
+- **Cop car (following player)**
 - Random cars (random pathing)
 
 ## Cutscenes
