@@ -22,7 +22,7 @@ public class CarController : MonoBehaviour {
 	[Range(0.0f, 1.0f)]
 	public float roadModifier = 1.0f;
 	[Range(0.0f, 1.0f)]
-	public float grassModifier = 0.8f;
+	public float grassModifier = 0.7f;
 	[Range(0.0f, 1.0f)]
 	public float dirtModifier = 0.4f;
 
@@ -137,8 +137,7 @@ public class CarController : MonoBehaviour {
             var dir = Player.position - transform.position;
             dir = transform.InverseTransformDirection(dir);
             var angle = (Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
-            Debug.Log(angle);
-            //Debug.Log(Vector3.forward);
+            //Debug.Log(angle);
             if (angle > 90 || angle < -90)
             {
                 turn = 1;
