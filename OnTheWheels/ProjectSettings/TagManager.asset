@@ -9,6 +9,8 @@ TagManager:
   - PowerUp
   - Road
   - Dirt
+  - Car
+  - Cop
   layers:
   - Default
   - TransparentFX

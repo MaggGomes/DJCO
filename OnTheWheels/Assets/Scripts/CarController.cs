@@ -34,12 +34,26 @@ public class CarController : MonoBehaviour {
    
     [Range(0.0f, 1.0f)]
     public float damage = 0f;
+    [Range(0.0f, 1.0f)]
+    public float resistance = 1f;
 
     public Sprite sprite;
-	public bool playerControlled = true;
+    public bool playerControlled = true;
+    public bool isCop = false;
 
-	private Rigidbody2D rb2d;
-	private float throttle; // 1 forward; negative backwards; 0 static
+    // INPUT VARIABLES
+    public KeyCode throttleKey = KeyCode.UpArrow;
+    public KeyCode brakeKey = KeyCode.DownArrow;
+    public KeyCode leftKey = KeyCode.LeftArrow;
+    public KeyCode rightKey = KeyCode.RightArrow;
+    public KeyCode handbrakeKey = KeyCode.Space;
+    public KeyCode nitroKey = KeyCode.RightControl;
+
+
+
+    private Rigidbody2D rb2d;
+    private SpriteRenderer brokenSprite;
+    private float throttle; // 1 forward; negative backwards; 0 static
 	private int turn; // 1 left; -1 right; 0 none
 	private int handbrake; // 1 on; 0 off
 	private int nitro; // 1 on; 0 off
@@ -51,7 +65,8 @@ public class CarController : MonoBehaviour {
 	{
 		rb2d = GetComponent<Rigidbody2D> ();
 		GetComponent<SpriteRenderer> ().sprite = sprite;
-		terrain = new Dictionary<string, bool> ();
+        brokenSprite = this.transform.Find("BrokenSprite").gameObject.GetComponent<SpriteRenderer>();
+        terrain = new Dictionary<string, bool> ();
 		terrain.Add ("dirt", false);
 		terrain.Add ("road", false);
 	}
@@ -60,37 +75,39 @@ public class CarController : MonoBehaviour {
 	{
 		if (playerControlled) {
 			// Throttle controls
-			if (Input.GetKey (KeyCode.UpArrow)) {
+			if (Input.GetKey (throttleKey)) {
 				throttle = 1;
-			} else if (Input.GetKey (KeyCode.DownArrow)) {
+			} else if (Input.GetKey (brakeKey)) {
 				throttle = -brakingConstant;
 			} else {
 				throttle = 0;
 			}
 
 			// Turning controls
-			if (Input.GetKey (KeyCode.LeftArrow)) {
+			if (Input.GetKey (leftKey)) {
 				turn = 1;
-			} else if (Input.GetKey (KeyCode.RightArrow)) {
+			} else if (Input.GetKey (rightKey)) {
 				turn = -1;
 			} else {
 				turn = 0;
 			}
 
 			// Handbrake control
-			if (Input.GetKey (KeyCode.Space)) {
+			if (Input.GetKey (handbrakeKey)) {
 				handbrake = 1;
 			} else {
 				handbrake = 0;
 			}
 
 			// Nitro control
-			if (Input.GetKey (KeyCode.RightControl) && nitroTank > 0) {
+			if (Input.GetKey (nitroKey) && nitroTank > 0) {
 				nitro = 1;
 			} else {
 				nitro = 0;
 			}
-		}
+		} else {
+            //TODO AI implementation
+        }
 	}
 
 	void FixedUpdate ()
@@ -123,7 +140,10 @@ public class CarController : MonoBehaviour {
 		// Turning
 		float turnRadius = distanceBetweenAxles / Mathf.Sin(Mathf.Deg2Rad * turningAngle * turn);
 		rb2d.angularVelocity = rb2d.velocity.magnitude / turnRadius;
-	}
+
+        // change broken transparency
+        brokenSprite.color = new Color(1f, 1f,1f, this.damage/1000);
+    }
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
@@ -134,7 +154,7 @@ public class CarController : MonoBehaviour {
 			this.nitroTank += 0.2f;
 		}
 
-        if (other.gameObject.tag == "Cheatsheet")
+        if (other.gameObject.tag == "Cheatsheet" && !isCop)
 		{
 			Destroy(other.gameObject);
 			this.cheatsheetsCaught++;
@@ -144,7 +164,7 @@ public class CarController : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D other)
     {
         Debug.Log(other.gameObject.tag);
-        this.damage += (rb2d.velocity).magnitude;
+        this.damage += (rb2d.velocity).magnitude / this.resistance;
 
     }
 }
