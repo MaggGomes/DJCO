@@ -184,7 +184,7 @@ public class CarController : MonoBehaviour {
 
         // change broken transparency
         brokenSprite.color = new Color(1f, 1f,1f, this.damage/1000);
-        Debug.Log(brokenSprite.color);
+        //Debug.Log(brokenSprite.color);
     }
 
 	void OnTriggerEnter2D(Collider2D other)

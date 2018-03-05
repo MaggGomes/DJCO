@@ -53,6 +53,9 @@ public class MapController : MonoBehaviour {
         Player.tag = "Player";
         Player.name = "Player";
 
+        // assign main camera to player car
+        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>().target = Player.transform;
+
         foreach (Vector3 powerUpPosition in powerUpsPositions) {
             // These should be pooled and re-used
             PowerUp = GameObject.Instantiate(Resources.Load("PowerUp") as GameObject);
