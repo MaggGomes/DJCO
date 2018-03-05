@@ -5,14 +5,20 @@ using UnityEngine;
 public class DirtTrigger : MonoBehaviour {
 
 	void OnTriggerStay2D(Collider2D other)
-	{
-		CarController car = other.gameObject.GetComponent<CarController> ();
-		car.terrain["dirt"] = true;
+    {
+        if (other.tag == "Player" || other.tag == "Cop")
+        {
+            CarController car = other.gameObject.GetComponent<CarController>();
+            car.terrain["dirt"] = true;
+        }
 	}
 
 	void OnTriggerExit2D(Collider2D other)
-	{
-		CarController car = other.gameObject.GetComponent<CarController> ();
-		car.terrain["dirt"] = false;
+    {
+        if (other.tag == "Player" || other.tag == "Cop")
+        {
+            CarController car = other.gameObject.GetComponent<CarController>();
+            car.terrain["dirt"] = false;
+        }
 	}
 }
