@@ -31,16 +31,10 @@ public class MapController : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-        //TODO initialize player with choosen car attributes
-        Player = GameObject.Instantiate(Resources.Load("Car") as GameObject);
-        Player.transform.position = startingPositions[0];
-        Player.tag = "Player";
-
-
         //TODO initialize cop with AI or controlled
         Cop = GameObject.Instantiate(Resources.Load("Car") as GameObject);
         Cop.transform.position = copStartingPositions[0];
-        Cop.GetComponent<CarController>().playerControlled = true;
+        Cop.GetComponent<CarController>().playerControlled = false;
         Cop.GetComponent<CarController>().throttleKey = KeyCode.W;
         Cop.GetComponent<CarController>().brakeKey = KeyCode.S;
         Cop.GetComponent<CarController>().leftKey = KeyCode.A;
@@ -50,6 +44,14 @@ public class MapController : MonoBehaviour {
         Cop.GetComponent<CarController>().sprite = Resources.Load<Sprite>("Cars/cop");
         Cop.GetComponent<CarController>().isCop = true;
         Cop.tag = "Cop";
+        Cop.name = "Cop";
+
+
+        //TODO initialize player with choosen car attributes
+        Player = GameObject.Instantiate(Resources.Load("Car") as GameObject);
+        Player.transform.position = startingPositions[0];
+        Player.tag = "Player";
+        Player.name = "Player";
 
         foreach (Vector3 powerUpPosition in powerUpsPositions) {
             // These should be pooled and re-used

@@ -127,29 +127,30 @@ public class CarController : MonoBehaviour {
         else
         {
             //TODO AI implementation
-            var distance = Vector3.Distance(transform.position, Player.position);
-            if (distance <= 100 && distance >= 10)
+            //transform.position = Vector2.MoveTowards(transform.position, Player.position,  100 * Time.deltaTime);
+            
+            //var dir = Player.position - transform.position;
+            //var angle = (Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg) - 90;
+            //transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+            throttle = 1;
+            var dir = Player.position - transform.position;
+            dir = transform.InverseTransformDirection(dir);
+            var angle = (Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
+            Debug.Log(angle);
+            //Debug.Log(Vector3.forward);
+            if (angle > 90 || angle < -90)
             {
-                transform.rotation = Quaternion.Slerp(transform.rotation,
-                Quaternion.LookRotation(Player.position - transform.position), 10 * Time.deltaTime);
+                turn = 1;
+            } else if( angle > -90 && angle < 90) {
+                turn = -1;
+            } else
+            {
+                turn = 0;
             }
 
-
-            else if (distance <= 10 && distance > 100)
-            {
-
-                //move towards the player
-                transform.rotation = Quaternion.Slerp(transform.rotation,
-                Quaternion.LookRotation(Player.position - transform.position), 10 * Time.deltaTime);
-                transform.position += transform.forward * 10 * Time.deltaTime;
-            }
-            else if (distance <= 10)
-            {
-                transform.rotation = Quaternion.Slerp(transform.rotation,
-                Quaternion.LookRotation(Player.position - transform.position), 10 * Time.deltaTime);
-            }
         }
-	}
+    }
 
 	void FixedUpdate ()
 	{

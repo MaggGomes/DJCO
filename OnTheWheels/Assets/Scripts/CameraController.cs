@@ -8,11 +8,12 @@ public class CameraController : MonoBehaviour {
 
 	void Start ()
 	{
-		
-	}
+    }
 
 	void LateUpdate ()
 	{
-		transform.position = new Vector3 (target.position.x, target.position.y, -5f);
+        // Do your stuff here
+        transform.rotation = Quaternion.Slerp(transform.rotation, target.rotation, Time.time * 0.2f);
+        transform.position = new Vector3 (target.position.x, target.position.y, -5f);
 	}
 }
