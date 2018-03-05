@@ -31,7 +31,11 @@ public class CarController : MonoBehaviour {
 	[Range(0.0f, 1.0f)]
 	public float nitroTank = 1f;
 
-	public Sprite sprite;
+   
+    [Range(0.0f, 1.0f)]
+    public float damage = 0f;
+
+    public Sprite sprite;
 	public bool playerControlled = true;
 
 	private Rigidbody2D rb2d;
@@ -128,10 +132,19 @@ public class CarController : MonoBehaviour {
 		{
 			Destroy(other.gameObject);
 			this.nitroTank += 0.2f;
-		} else if (other.gameObject.tag == "Cheatsheet")
+		}
+
+        if (other.gameObject.tag == "Cheatsheet")
 		{
 			Destroy(other.gameObject);
 			this.cheatsheetsCaught++;
 		}
-	}
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        Debug.Log(other.gameObject.tag);
+        this.damage += (rb2d.velocity).magnitude;
+
+    }
 }
