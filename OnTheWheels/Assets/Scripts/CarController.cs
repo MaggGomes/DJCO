@@ -40,6 +40,7 @@ public class CarController : MonoBehaviour {
     public Sprite sprite;
     public bool playerControlled = true;
     public bool isCop = false;
+    private Transform Player;
 
     // INPUT VARIABLES
     public KeyCode throttleKey = KeyCode.UpArrow;
@@ -48,8 +49,7 @@ public class CarController : MonoBehaviour {
     public KeyCode rightKey = KeyCode.RightArrow;
     public KeyCode handbrakeKey = KeyCode.Space;
     public KeyCode nitroKey = KeyCode.RightControl;
-
-
+    
 
     private Rigidbody2D rb2d;
     private SpriteRenderer brokenSprite;
@@ -63,6 +63,7 @@ public class CarController : MonoBehaviour {
 
 	void Start ()
 	{
+        Player = GameObject.FindGameObjectWithTag("Player").transform;
 		rb2d = GetComponent<Rigidbody2D> ();
 		GetComponent<SpriteRenderer> ().sprite = sprite;
         brokenSprite = this.transform.Find("BrokenSprite").gameObject.GetComponent<SpriteRenderer>();
@@ -73,40 +74,80 @@ public class CarController : MonoBehaviour {
 
 	void Update()
 	{
-		if (playerControlled) {
-			// Throttle controls
-			if (Input.GetKey (throttleKey)) {
-				throttle = 1;
-			} else if (Input.GetKey (brakeKey)) {
-				throttle = -brakingConstant;
-			} else {
-				throttle = 0;
-			}
+        if (playerControlled)
+        {
+            // Throttle controls
+            if (Input.GetKey(throttleKey))
+            {
+                throttle = 1;
+            }
+            else if (Input.GetKey(brakeKey))
+            {
+                throttle = -brakingConstant;
+            }
+            else
+            {
+                throttle = 0;
+            }
 
-			// Turning controls
-			if (Input.GetKey (leftKey)) {
-				turn = 1;
-			} else if (Input.GetKey (rightKey)) {
-				turn = -1;
-			} else {
-				turn = 0;
-			}
+            // Turning controls
+            if (Input.GetKey(leftKey))
+            {
+                turn = 1;
+            }
+            else if (Input.GetKey(rightKey))
+            {
+                turn = -1;
+            }
+            else
+            {
+                turn = 0;
+            }
 
-			// Handbrake control
-			if (Input.GetKey (handbrakeKey)) {
-				handbrake = 1;
-			} else {
-				handbrake = 0;
-			}
+            // Handbrake control
+            if (Input.GetKey(handbrakeKey))
+            {
+                handbrake = 1;
+            }
+            else
+            {
+                handbrake = 0;
+            }
 
-			// Nitro control
-			if (Input.GetKey (nitroKey) && nitroTank > 0) {
-				nitro = 1;
-			} else {
-				nitro = 0;
-			}
-		} else {
+            // Nitro control
+            if (Input.GetKey(nitroKey) && nitroTank > 0)
+            {
+                nitro = 1;
+            }
+            else
+            {
+                nitro = 0;
+            }
+        }
+        else
+        {
             //TODO AI implementation
+            var distance = Vector3.Distance(transform.position, Player.position);
+            if (distance <= 100 && distance >= 10)
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation,
+                Quaternion.LookRotation(Player.position - transform.position), 10 * Time.deltaTime);
+            }
+
+
+            else if (distance <= 10 && distance > 100)
+            {
+
+                //move towards the player
+                transform.rotation = Quaternion.Slerp(transform.rotation,
+                Quaternion.LookRotation(Player.position - transform.position), 10 * Time.deltaTime);
+                transform.position += transform.forward * 10 * Time.deltaTime;
+            }
+            else if (distance <= 10)
+            {
+                transform.rotation = Quaternion.Slerp(transform.rotation,
+                Quaternion.LookRotation(Player.position - transform.position), 10 * Time.deltaTime);
+            }
         }
 	}
 
