@@ -11,6 +11,8 @@ TagManager:
   - Dirt
   - Car
   - Cop
+  - Camera1
+  - Camera2
   layers:
   - Default
   - TransparentFX
