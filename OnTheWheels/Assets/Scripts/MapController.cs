@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MapController : MonoBehaviour {
 
+	public static bool CopHumanController = true;
 
     Vector3[] startingPositions = {
         new Vector3(3857, -3716, 0)
@@ -34,7 +35,7 @@ public class MapController : MonoBehaviour {
         //TODO initialize cop with AI or controlled
         Cop = GameObject.Instantiate(Resources.Load("Car") as GameObject);
         Cop.transform.position = copStartingPositions[0];
-        Cop.GetComponent<CarController>().playerControlled = true;
+		Cop.GetComponent<CarController>().playerControlled = MapController.CopHumanController;
         Cop.GetComponent<CarController>().throttleKey = KeyCode.W;
         Cop.GetComponent<CarController>().brakeKey = KeyCode.S;
         Cop.GetComponent<CarController>().leftKey = KeyCode.A;
