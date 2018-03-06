@@ -58,12 +58,15 @@ public class MapController : MonoBehaviour {
         GameObject.FindGameObjectWithTag("Camera1").GetComponent<CameraController>().target = Player.transform;
 
         // assign main camera to player cop
-        if (Cop.GetComponent<CarController>().playerControlled)
-        {
-            GameObject.FindGameObjectWithTag("Camera1").GetComponent<Camera>().rect = new Rect(0f, 0f, 0.5f, 1f);
-            GameObject.FindGameObjectWithTag("Camera2").GetComponent<CameraController>().target = Cop.transform;
-            GameObject.FindGameObjectWithTag("Camera2").GetComponent<Camera>().rect = new Rect(0.5f, 0f, 0.5f, 1f);
-        }
+		if (Cop.GetComponent<CarController> ().playerControlled) {
+			GameObject.FindGameObjectWithTag ("Camera1").GetComponent<Camera> ().rect = new Rect (0f, 0f, 0.5f, 1f);
+			GameObject.FindGameObjectWithTag ("Camera2").GetComponent<CameraController> ().target = Cop.transform;
+			Debug.Log (GameObject.FindGameObjectWithTag ("Camera2").GetComponent<CameraController> ().target);
+			GameObject.FindGameObjectWithTag ("Camera2").GetComponent<Camera> ().rect = new Rect (0.5f, 0f, 0.5f, 1f);
+		} else {
+			// Disables Camera 2
+			GameObject.FindGameObjectWithTag ("Camera2").GetComponent<CameraController> ().gameObject.SetActive (false);
+		}
 
         foreach (Vector3 powerUpPosition in powerUpsPositions) {
             // These should be pooled and re-used
