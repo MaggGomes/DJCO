@@ -59,6 +59,7 @@ public class MapController : MonoBehaviour {
 		} else {
 			// Disables Camera 2
 			GameObject.FindGameObjectWithTag ("Camera2").GetComponent<CameraController> ().gameObject.SetActive (false);
+			GameObject.FindGameObjectWithTag ("HUD2").GetComponent<HUDController> ().gameObject.SetActive (false);
 		}
 
         foreach (Vector3 powerUpPosition in powerUpsPositions) {
