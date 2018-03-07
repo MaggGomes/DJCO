@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class HUDController : MonoBehaviour {
 
@@ -10,6 +11,8 @@ public class HUDController : MonoBehaviour {
 	public Image contentHealthBar;
 	public float fillAmountNitroBar;
 	public Image contentNitroBar;
+	public int cheatSheetCounter = 0;
+	public TextMeshProUGUI cheatSheetText;
 
 	// Use this for initialization
 	void Start () {
@@ -24,6 +27,7 @@ public class HUDController : MonoBehaviour {
 		Debug.Log (car.GetComponent<CarController> ().lifePoints);
 		fillAmountHealthBar = car.GetComponent<CarController> ().lifePoints / 1000;
 		fillAmountNitroBar = car.GetComponent<CarController> ().nitroTank;
+		cheatSheetCounter = car.GetComponent<CarController> ().cheatsheetsCaught;
 
 		Debug.Log (car.GetComponent<CarController> ().nitroTank);
 
@@ -32,5 +36,8 @@ public class HUDController : MonoBehaviour {
 
 		if(fillAmountNitroBar != contentNitroBar.fillAmount)
 			contentNitroBar.fillAmount = fillAmountNitroBar;
+
+		if (!car.GetComponent<CarController>().isCop && cheatSheetCounter.ToString() != cheatSheetText.text)
+			cheatSheetText.text = cheatSheetCounter.ToString();
 	}
 }

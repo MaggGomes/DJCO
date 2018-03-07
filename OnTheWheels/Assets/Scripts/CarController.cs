@@ -62,7 +62,7 @@ public class CarController : MonoBehaviour {
 	private int nitro; // 1 on; 0 off
 	private float terrainModifier = 1.0f;
 	public Dictionary<string, bool> terrain;
-	private int cheatsheetsCaught = 0;
+	public int cheatsheetsCaught = 0;
 
 	void Start ()
 	{
