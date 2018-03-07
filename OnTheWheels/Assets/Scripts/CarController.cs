@@ -25,17 +25,16 @@ public class CarController : MonoBehaviour {
 	public float grassModifier = 0.7f;
 	[Range(0.0f, 1.0f)]
 	public float dirtModifier = 0.4f;
-
 	[Range(1.0f, 5.0f)]
 	public float nitroPower = 2f;
 	[Range(0.0f, 1.0f)]
-	public float nitroTank = 1f;
-
-   
+	public float nitroTank = 1f;   
     [Range(0.0f, 1.0f)]
     public float damage = 0f;
     [Range(0.0f, 1.0f)]
     public float resistance = 1f;
+
+	public HealthBarScript healthBar;
 
     public Sprite sprite;
     public bool playerControlled = true;
@@ -207,6 +206,5 @@ public class CarController : MonoBehaviour {
     {
         Debug.Log(other.gameObject.tag);
         this.damage += (rb2d.velocity).magnitude / this.resistance;
-
     }
 }
