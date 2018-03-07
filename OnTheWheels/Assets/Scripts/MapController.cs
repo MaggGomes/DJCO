@@ -50,6 +50,7 @@ public class MapController : MonoBehaviour {
 
         // assign camera to player car
         GameObject.FindGameObjectWithTag("Camera1").GetComponent<CameraController>().target = Player.transform;
+		GameObject.FindGameObjectWithTag("MiniMap1").GetComponent<CameraController>().target = Player.transform;
 
         // assign main camera to player cop
 		if (Cop.GetComponent<CarController> ().playerControlled) {
