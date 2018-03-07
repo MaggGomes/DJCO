@@ -15,6 +15,10 @@ TagManager:
   - Camera2
   - HUD1
   - HUD2
+  - MiniMap1
+  - MiniMap2
+  - MiniMapCamera1
+  - MiniMapCamera2
   layers:
   - Default
   - TransparentFX
