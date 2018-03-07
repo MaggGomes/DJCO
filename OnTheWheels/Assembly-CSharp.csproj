@@ -56,7 +56,7 @@
      <Compile Include="Assets\Scripts\DirtTrigger.cs" />
      <Compile Include="Assets\Scripts\GUI\GameModeMenu.cs" />
      <Compile Include="Assets\Scripts\GUI\MainMenu.cs" />
-     <Compile Include="Assets\Scripts\HUD\HealthBarScript.cs" />
+     <Compile Include="Assets\Scripts\HUD\HUDController.cs" />
      <Compile Include="Assets\Scripts\MapController.cs" />
      <Compile Include="Assets\Scripts\RoadTrigger.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />

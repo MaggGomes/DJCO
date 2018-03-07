@@ -9,12 +9,11 @@ public class MapController : MonoBehaviour {
     Vector3[] startingPositions = {
         new Vector3(3857, -3716, 0)
     };
-    GameObject Player;
+    public GameObject Player;
     Vector3[] copStartingPositions = {
         new Vector3(3857, -3760, 0)
     };
-    GameObject Cop;
-
+    public GameObject Cop;
 
     Vector3[] powerUpsPositions = {
         new Vector3(3900, -3115, 0),
@@ -33,7 +32,6 @@ public class MapController : MonoBehaviour {
     void Start ()
     {
         //TODO initialize cop with AI or controlled
-        Cop = GameObject.Instantiate(Resources.Load("Car") as GameObject);
         Cop.transform.position = copStartingPositions[0];
 		Cop.GetComponent<CarController>().playerControlled = MapController.CopHumanController;
         Cop.GetComponent<CarController>().throttleKey = KeyCode.W;
@@ -42,14 +40,10 @@ public class MapController : MonoBehaviour {
         Cop.GetComponent<CarController>().rightKey = KeyCode.D;
         Cop.GetComponent<CarController>().handbrakeKey = KeyCode.Q;
         Cop.GetComponent<CarController>().nitroKey = KeyCode.E;
-        Cop.GetComponent<CarController>().sprite = Resources.Load<Sprite>("Cars/cop");
-        Cop.GetComponent<CarController>().isCop = true;
         Cop.tag = "Cop";
         Cop.name = "Cop";
 
-
         //TODO initialize player with choosen car attributes
-        Player = GameObject.Instantiate(Resources.Load("Car") as GameObject);
         Player.transform.position = startingPositions[0];
         Player.tag = "Player";
         Player.name = "Player";
@@ -61,7 +55,6 @@ public class MapController : MonoBehaviour {
 		if (Cop.GetComponent<CarController> ().playerControlled) {
 			GameObject.FindGameObjectWithTag ("Camera1").GetComponent<Camera> ().rect = new Rect (0f, 0f, 0.5f, 1f);
 			GameObject.FindGameObjectWithTag ("Camera2").GetComponent<CameraController> ().target = Cop.transform;
-			Debug.Log (GameObject.FindGameObjectWithTag ("Camera2").GetComponent<CameraController> ().target);
 			GameObject.FindGameObjectWithTag ("Camera2").GetComponent<Camera> ().rect = new Rect (0.5f, 0f, 0.5f, 1f);
 		} else {
 			// Disables Camera 2

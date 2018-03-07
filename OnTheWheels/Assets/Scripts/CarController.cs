@@ -28,13 +28,17 @@ public class CarController : MonoBehaviour {
 	[Range(1.0f, 5.0f)]
 	public float nitroPower = 2f;
 	[Range(0.0f, 1.0f)]
+	public float maxNitroTank = 1f;  
+	public float minNitroTank = 0f;
+	[Range(0.0f, 1.0f)]
 	public float nitroTank = 1f;   
-    [Range(0.0f, 1.0f)]
-    public float damage = 0f;
+    [Range(0.0f, 1000f)]
+	public float maxLifePoints = 1000f;
+	public float minLifePoints = 0f;
+	[Range(0.0f, 1000f)]
+    public float lifePoints = 1000f;
     [Range(0.0f, 1.0f)]
     public float resistance = 1f;
-
-	public HealthBarScript healthBar;
 
     public Sprite sprite;
     public bool playerControlled = true;
@@ -47,7 +51,7 @@ public class CarController : MonoBehaviour {
     public KeyCode leftKey = KeyCode.LeftArrow;
     public KeyCode rightKey = KeyCode.RightArrow;
     public KeyCode handbrakeKey = KeyCode.Space;
-    public KeyCode nitroKey = KeyCode.RightControl;
+	public KeyCode nitroKey = KeyCode.RightControl;
     
 
     private Rigidbody2D rb2d;
@@ -114,8 +118,9 @@ public class CarController : MonoBehaviour {
             }
 
             // Nitro control
-            if (Input.GetKey(nitroKey) && nitroTank > 0)
+			if (Input.GetKey(nitroKey))
             {
+				Debug.Log ("nitroactivated");
                 nitro = 1;
             }
             else
@@ -146,7 +151,6 @@ public class CarController : MonoBehaviour {
             {
                 turn = 0;
             }
-
         }
     }
 
@@ -163,7 +167,12 @@ public class CarController : MonoBehaviour {
 		// Longitudinal forces
 		Vector2 tractionForce = rb2d.transform.up * acceleration * throttle * terrainModifier;
 		tractionForce = tractionForce + tractionForce * nitro * nitroPower;
-		nitroTank -= 0.05f * nitro;
+		nitroTank -= 0.01f * nitro;
+
+		// nitrotank can't be less than zero
+		if (nitroTank < minNitroTank)
+			nitroTank = minNitroTank;
+		
 		Vector2 dragForce = -dragConstant * rb2d.velocity * rb2d.velocity.magnitude;
 		Vector2 frictionForce = -frictionConstant * rb2d.velocity;
 		Vector2 brakingForce = -handbrakingConstant * Vector2.Dot(rb2d.transform.up, rb2d.velocity.normalized) * rb2d.transform.up * acceleration * handbrake;
@@ -182,8 +191,7 @@ public class CarController : MonoBehaviour {
 		rb2d.angularVelocity = rb2d.velocity.magnitude / turnRadius;
 
         // change broken transparency
-        brokenSprite.color = new Color(1f, 1f,1f, this.damage/1000);
-        //Debug.Log(brokenSprite.color);
+		brokenSprite.color = new Color(1f, 1f,1f, (this.maxLifePoints-this.lifePoints)/1000);
     }
 
 	void OnTriggerEnter2D(Collider2D other)
@@ -193,6 +201,9 @@ public class CarController : MonoBehaviour {
 		{
 			Destroy(other.gameObject);
 			this.nitroTank += 0.2f;
+
+			if (nitroTank > maxNitroTank)
+				nitroTank = maxNitroTank;
 		}
 
         if (other.gameObject.tag == "Cheatsheet" && !isCop)
@@ -205,6 +216,12 @@ public class CarController : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D other)
     {
         Debug.Log(other.gameObject.tag);
-        this.damage += (rb2d.velocity).magnitude / this.resistance;
+		Debug.Log ((rb2d.velocity).magnitude / this.resistance);
+		lifePoints -= (rb2d.velocity).magnitude / this.resistance;
+
+		if (lifePoints < minLifePoints)
+			lifePoints = minLifePoints;
+		else if (lifePoints > maxLifePoints)
+			lifePoints = maxLifePoints;
     }
 }

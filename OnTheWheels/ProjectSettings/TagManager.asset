@@ -13,6 +13,7 @@ TagManager:
   - Cop
   - Camera1
   - Camera2
+  - HUD1
   layers:
   - Default
   - TransparentFX
