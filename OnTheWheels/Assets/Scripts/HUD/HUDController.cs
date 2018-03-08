@@ -24,12 +24,12 @@ public class HUDController : MonoBehaviour {
 	}
 
 	private void HandleBar(){
-		Debug.Log (car.GetComponent<CarController> ().lifePoints);
+		//Debug.Log (car.GetComponent<CarController> ().lifePoints);
 		fillAmountHealthBar = car.GetComponent<CarController> ().lifePoints / 1000;
 		fillAmountNitroBar = car.GetComponent<CarController> ().nitroTank;
 		cheatSheetCounter = car.GetComponent<CarController> ().cheatsheetsCaught;
 
-		Debug.Log (car.GetComponent<CarController> ().nitroTank);
+		//Debug.Log (car.GetComponent<CarController> ().nitroTank);
 
 		if(fillAmountHealthBar != contentHealthBar.fillAmount)
 			contentHealthBar.fillAmount = fillAmountHealthBar;

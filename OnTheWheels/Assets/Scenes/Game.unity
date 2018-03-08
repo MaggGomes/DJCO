@@ -1702,6 +1702,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 1764013184}
   Cop: {fileID: 897260094}
+  nPowerUps: 4
+  nCheatsheets: 20
 --- !u!1 &103564501
 GameObject:
   m_ObjectHideFlags: 0
@@ -1733,6 +1735,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  rotationSmoothness: 1
 --- !u!81 &103564503
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1767,7 +1770,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 200
+  orthographic size: 150
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -6826,6 +6829,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  rotationSmoothness: 1
 --- !u!4 &590298698
 Transform:
   m_ObjectHideFlags: 0
@@ -8553,6 +8557,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  rotationSmoothness: 1
 --- !u!81 &922986738
 AudioListener:
   m_ObjectHideFlags: 0
@@ -8587,7 +8592,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 200
+  orthographic size: 150
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -16575,6 +16580,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  rotationSmoothness: 1
 --- !u!1001 &1764013183
 Prefab:
   m_ObjectHideFlags: 0
@@ -16613,6 +16619,16 @@ Prefab:
     - target: {fileID: 4549328381745582, guid: a8fb07f67789efc47b8f3d8d06a0abbe, type: 2}
       propertyPath: m_RootOrder
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114498847128923032, guid: a8fb07f67789efc47b8f3d8d06a0abbe,
+        type: 2}
+      propertyPath: dragConstant
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 114498847128923032, guid: a8fb07f67789efc47b8f3d8d06a0abbe,
+        type: 2}
+      propertyPath: brakingConstant
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a8fb07f67789efc47b8f3d8d06a0abbe, type: 2}

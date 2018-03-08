@@ -19,6 +19,7 @@ TagManager:
   - MiniMap2
   - MiniMapCamera1
   - MiniMapCamera2
+  - ResistancePowerUp
   layers:
   - Default
   - TransparentFX

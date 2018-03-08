@@ -6,20 +6,31 @@ public class MapController : MonoBehaviour {
 
 	public static bool CopHumanController = true;
 
-    Vector3[] startingPositions = {
-        new Vector3(3857, -3716, 0)
-    };
+	// starting positions of the player and corresponding possible positions of the cop
+	Dictionary<Vector3, Vector3[]> startingPositions = new Dictionary<Vector3, Vector3[]>() {
+		{new Vector3(3857, -3716, 0), new Vector3[]{new Vector3(3857, -3760, 0), new Vector3(3857, -3790, 0)}},
+		{new Vector3(3857, -3640, 0), new Vector3[]{new Vector3(3857, -3715, 0)}},
+	};
     public GameObject Player;
-    Vector3[] copStartingPositions = {
-        new Vector3(3857, -3760, 0)
-    };
     public GameObject Cop;
 
-    Vector3[] powerUpsPositions = {
+
+	public int nPowerUps = 4;
+	string[] powerUpsTypes = {
+		"PowerUp",
+		"ResistancePowerUp"
+	};
+	List<Vector3> powerUpsPositions = new List<Vector3>(new Vector3[]{
         new Vector3(3900, -3115, 0),
-        new Vector3(3945, -2625, 0),
-    };
-    GameObject PowerUp;
+		new Vector3(3945, -2625, 0),
+		new Vector3(3800, -3115, 0),
+		new Vector3(4000, -2625, 0),
+	});
+		
+	List<Vector3> usedPowerUpsPositions= new List<Vector3>();
+	GameObject PowerUp;
+
+	public int nCheatsheets = 20;
 
     Vector3[] cheatsheetsPositions = {
         new Vector3(3930, -3115, 0),
@@ -31,20 +42,29 @@ public class MapController : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+		List<Vector3> keys = new List<Vector3>(startingPositions.Keys);
+		Vector3 startingPlayerPosition = keys[Random.Range (0, keys.Count)]; // random position index of the player
+		int rCopIndex = Random.Range (0, startingPositions[startingPlayerPosition].Length); // random position index of the cop
         //TODO initialize cop with AI or controlled
-        Cop.transform.position = copStartingPositions[0];
+		Cop.transform.position = startingPositions[startingPlayerPosition][rCopIndex];
 		Cop.GetComponent<CarController>().playerControlled = MapController.CopHumanController;
-        Cop.GetComponent<CarController>().throttleKey = KeyCode.W;
-        Cop.GetComponent<CarController>().brakeKey = KeyCode.S;
-        Cop.GetComponent<CarController>().leftKey = KeyCode.A;
-        Cop.GetComponent<CarController>().rightKey = KeyCode.D;
-        Cop.GetComponent<CarController>().handbrakeKey = KeyCode.Q;
-        Cop.GetComponent<CarController>().nitroKey = KeyCode.E;
+		Cop.GetComponent<CarController>().throttleKey = KeyCode.UpArrow;
+		Cop.GetComponent<CarController>().brakeKey = KeyCode.DownArrow;
+		Cop.GetComponent<CarController>().leftKey = KeyCode.LeftArrow;
+		Cop.GetComponent<CarController>().rightKey = KeyCode.RightArrow;
+		Cop.GetComponent<CarController>().handbrakeKey = KeyCode.RightControl;
+		Cop.GetComponent<CarController>().nitroKey = KeyCode.Space;
         Cop.tag = "Cop";
         Cop.name = "Cop";
 
         //TODO initialize player with choosen car attributes
-        Player.transform.position = startingPositions[0];
+		Player.transform.position = startingPlayerPosition;
+		Player.GetComponent<CarController>().throttleKey = KeyCode.W;
+		Player.GetComponent<CarController>().brakeKey = KeyCode.S;
+		Player.GetComponent<CarController>().leftKey = KeyCode.A;
+		Player.GetComponent<CarController>().rightKey = KeyCode.D;
+		Player.GetComponent<CarController>().handbrakeKey = KeyCode.LeftShift;
+		Player.GetComponent<CarController>().nitroKey = KeyCode.LeftControl;
         Player.tag = "Player";
         Player.name = "Player";
 
@@ -65,12 +85,19 @@ public class MapController : MonoBehaviour {
 			GameObject.FindGameObjectWithTag ("MiniMapCamera2").GetComponent<CameraController> ().gameObject.SetActive (false);
 		}
 
-        foreach (Vector3 powerUpPosition in powerUpsPositions) {
-            // These should be pooled and re-used
-            PowerUp = GameObject.Instantiate(Resources.Load("PowerUp") as GameObject);
+		// POWER UPS
+		for (var i = 0; i < nPowerUps; i++) {
+			int r1 = Random.Range (0, powerUpsPositions.Count); // random position
+			int r2 = Random.Range (0, powerUpsTypes.Length); // random power up type
+			Vector3 powerUpPosition = powerUpsPositions[r1]; // pick one position from the list
+			string powerUpType = powerUpsTypes[r2]; // pick one power up type
+			usedPowerUpsPositions.Add(powerUpPosition); // add to used positions
+			powerUpsPositions.Remove(powerUpPosition); // remove from positions
 
-            PowerUp.transform.position = powerUpPosition;
-        }
+			PowerUp = GameObject.Instantiate(Resources.Load(powerUpType) as GameObject);
+
+			PowerUp.transform.position = powerUpPosition;
+		}
 
         foreach (Vector3 cheatsheetPosition in cheatsheetsPositions)
         {

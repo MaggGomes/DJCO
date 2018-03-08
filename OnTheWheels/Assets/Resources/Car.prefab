@@ -120,9 +120,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   acceleration: 2000
-  dragConstant: 0.02
+  dragConstant: 0.05
   frictionConstant: 0.01
-  brakingConstant: 0.2
+  brakingConstant: 0.1
   handbrakingConstant: 0.7
   distanceBetweenAxles: 0.3
   turningAngle: 15
@@ -180,7 +180,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 351235107
   m_SortingLayer: 5
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: ccbea79e85e74b14d99be1c506a1253e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

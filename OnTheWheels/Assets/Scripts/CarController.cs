@@ -8,11 +8,11 @@ public class CarController : MonoBehaviour {
 	[Range(1000.0f, 3000.0f)]
 	public float acceleration = 2000f;
 	[Range(0.0f, 1.0f)]
-	public float dragConstant = 0.02f;
+	public float dragConstant = 0.05f;
 	[Range(0.0f, 0.1f)]
 	public float frictionConstant = 0.01f;
 	[Range(0.0f, 1.0f)]
-	public float brakingConstant = 0.2f;
+	public float brakingConstant = 0.1f;
 	[Range(0.0f, 1.0f)]
 	public float handbrakingConstant = 0.7f;
 	[Range(0.0f, 1.0f)]
@@ -57,7 +57,7 @@ public class CarController : MonoBehaviour {
     private Rigidbody2D rb2d;
     private SpriteRenderer brokenSprite;
     private float throttle; // 1 forward; negative backwards; 0 static
-	private int turn; // 1 left; -1 right; 0 none
+	private float turn; // 1 left; -1 right; 0 none
 	private int handbrake; // 1 on; 0 off
 	private int nitro; // 1 on; 0 off
 	private float terrainModifier = 1.0f;
@@ -95,12 +95,20 @@ public class CarController : MonoBehaviour {
 
             // Turning controls
             if (Input.GetKey(leftKey))
-            {
-                turn = 1;
+			{
+				if (turn <= 0) {
+					turn = 1;
+				}else if (turn < 50){
+						turn++;
+				}
             }
             else if (Input.GetKey(rightKey))
-            {
-                turn = -1;
+			{
+				if (turn >= 0) {
+					turn = -1;
+				}else if (turn > -50){
+					turn--;
+				}
             }
             else
             {
@@ -118,7 +126,7 @@ public class CarController : MonoBehaviour {
             }
 
             // Nitro control
-			if (Input.GetKey(nitroKey))
+			if (Input.GetKey(nitroKey) && nitroTank > 0)
             {
 				Debug.Log ("nitroactivated");
                 nitro = 1;
@@ -144,9 +152,9 @@ public class CarController : MonoBehaviour {
             //Debug.Log(angle);
             if (angle > 90 || angle < -90)
             {
-                turn = 1;
+                turn = 50;
             } else if( angle > -90 && angle < 90) {
-                turn = -1;
+                turn = -50;
             } else
             {
                 turn = 0;
@@ -187,23 +195,34 @@ public class CarController : MonoBehaviour {
 		rb2d.AddForce (longitudinalForce);
 
 		// Turning
-		float turnRadius = distanceBetweenAxles / Mathf.Sin(Mathf.Deg2Rad * turningAngle * turn);
+		float turnRadius = distanceBetweenAxles / Mathf.Sin(Mathf.Deg2Rad * turningAngle * (turn/50));
 		rb2d.angularVelocity = rb2d.velocity.magnitude / turnRadius;
 
         // change broken transparency
 		brokenSprite.color = new Color(1f, 1f,1f, (this.maxLifePoints-this.lifePoints)/1000);
+
+		Debug.Log (rb2d.velocity.magnitude);
     }
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		Debug.Log(other.gameObject.tag);
-		if(other.gameObject.tag == "PowerUp")
+		//Debug.Log(other.gameObject.tag);
+		if(other.gameObject.tag == "PowerUp" && nitroTank < 1f)
 		{
 			Destroy(other.gameObject);
 			this.nitroTank += 0.2f;
 
 			if (nitroTank > maxNitroTank)
 				nitroTank = maxNitroTank;
+		}
+
+		if(other.gameObject.tag == "ResistancePowerUp" && lifePoints < 1000f)
+		{
+			Destroy(other.gameObject);
+			this.lifePoints += 200;
+
+			if (lifePoints > maxLifePoints)
+				lifePoints = maxLifePoints;
 		}
 
         if (other.gameObject.tag == "Cheatsheet" && !isCop)
@@ -215,8 +234,8 @@ public class CarController : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log(other.gameObject.tag);
-		Debug.Log ((rb2d.velocity).magnitude / this.resistance);
+        //Debug.Log(other.gameObject.tag);
+		//Debug.Log ((rb2d.velocity).magnitude / this.resistance);
 		lifePoints -= (rb2d.velocity).magnitude / this.resistance;
 
 		if (lifePoints < minLifePoints)
