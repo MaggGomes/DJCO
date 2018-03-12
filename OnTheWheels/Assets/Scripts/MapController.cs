@@ -30,7 +30,7 @@ public class MapController : MonoBehaviour {
 	List<Vector3> usedPowerUpsPositions= new List<Vector3>();
 	GameObject PowerUp;
 
-	public int nCheatsheets = 20;
+	public static int nCheatsheets = 3;
 
     Vector3[] cheatsheetsPositions = {
         new Vector3(3930, -3115, 0),
@@ -38,6 +38,8 @@ public class MapController : MonoBehaviour {
         new Vector3(3970, -2660, 0),
     };
     GameObject Cheatsheet;
+
+	public static float timeCounter = 0;
 
     // Use this for initialization
     void Start ()
@@ -110,6 +112,6 @@ public class MapController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		timeCounter += Time.deltaTime;
 	}
 }

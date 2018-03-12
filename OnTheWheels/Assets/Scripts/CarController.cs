@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CarController : MonoBehaviour {
 
@@ -201,7 +202,7 @@ public class CarController : MonoBehaviour {
         // change broken transparency
 		brokenSprite.color = new Color(1f, 1f,1f, (this.maxLifePoints-this.lifePoints)/1000);
 
-		Debug.Log (rb2d.velocity.magnitude);
+		//Debug.Log (rb2d.velocity.magnitude);
     }
 
 	void OnTriggerEnter2D(Collider2D other)
@@ -230,6 +231,12 @@ public class CarController : MonoBehaviour {
 			Destroy(other.gameObject);
 			this.cheatsheetsCaught++;
 		}
+
+		if (other.gameObject.tag == "End" && !isCop && this.cheatsheetsCaught == MapController.nCheatsheets) //gameover condition
+		{
+			Debug.Log ("rip");
+			this.GameOver();
+		}
     }
 
     void OnCollisionEnter2D(Collision2D other)
@@ -243,4 +250,8 @@ public class CarController : MonoBehaviour {
 		else if (lifePoints > maxLifePoints)
 			lifePoints = maxLifePoints;
     }
+
+	void GameOver(){
+		SceneManager.LoadScene ("GameOver", LoadSceneMode.Single);
+	}
 }
