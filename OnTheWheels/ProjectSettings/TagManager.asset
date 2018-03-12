@@ -21,6 +21,9 @@ TagManager:
   - MiniMapCamera2
   - ResistancePowerUp
   - End
+  - InstantNitro
+  - InstantSlowDown
+  - Shield
   layers:
   - Default
   - TransparentFX

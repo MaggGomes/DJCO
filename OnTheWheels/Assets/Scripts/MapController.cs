@@ -15,24 +15,27 @@ public class MapController : MonoBehaviour {
     public GameObject Cop;
 
 
-	public int nPowerUps = 4;
-	string[] powerUpsTypes = {
+	public static int nPowerUps = 3;
+	static string[] powerUpsTypes = {
 		"PowerUp",
-		"ResistancePowerUp"
+		"ResistancePowerUp",
+		"InstantNitro",
+		"InstantSlowDown",
+		"Shield"
 	};
-	List<Vector3> powerUpsPositions = new List<Vector3>(new Vector3[]{
+	static List<Vector3> powerUpsPositions = new List<Vector3>(new Vector3[]{
         new Vector3(3900, -3115, 0),
 		new Vector3(3945, -2625, 0),
 		new Vector3(3800, -3115, 0),
 		new Vector3(4000, -2625, 0),
 	});
-		
-	List<Vector3> usedPowerUpsPositions= new List<Vector3>();
-	GameObject PowerUp;
+
+	static List<Vector3> activePowerUpsPositions = new List<Vector3>();
+	static List<Vector3> usedPowerUpsPositions = new List<Vector3>();
 
 	public static int nCheatsheets = 3;
 
-    Vector3[] cheatsheetsPositions = {
+    static Vector3[] cheatsheetsPositions = {
         new Vector3(3930, -3115, 0),
         new Vector3(3970, -2625, 0),
         new Vector3(3970, -2660, 0),
@@ -96,7 +99,7 @@ public class MapController : MonoBehaviour {
 			usedPowerUpsPositions.Add(powerUpPosition); // add to used positions
 			powerUpsPositions.Remove(powerUpPosition); // remove from positions
 
-			PowerUp = GameObject.Instantiate(Resources.Load(powerUpType) as GameObject);
+			GameObject PowerUp = GameObject.Instantiate(Resources.Load(powerUpType) as GameObject);
 
 			PowerUp.transform.position = powerUpPosition;
 		}
@@ -113,5 +116,21 @@ public class MapController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		timeCounter += Time.deltaTime;
+	}
+
+	public static void PlaceNewPowerUp(Vector3 position){
+		usedPowerUpsPositions.Remove(position); // remove from used positions
+
+		int r1 = Random.Range (0, powerUpsPositions.Count); // random position
+		int r2 = Random.Range (0, powerUpsTypes.Length); // random power up type
+		Vector3 powerUpPosition = powerUpsPositions[r1]; // pick one position from the list
+		string powerUpType = powerUpsTypes[r2]; // pick one power up type
+		usedPowerUpsPositions.Add(powerUpPosition); // add to used positions
+		powerUpsPositions.Remove(powerUpPosition); // remove from positions
+
+		GameObject PowerUp = GameObject.Instantiate(Resources.Load(powerUpType) as GameObject);
+		PowerUp.transform.position = powerUpPosition;
+
+		powerUpsPositions.Add(position); // after all add back to positions
 	}
 }

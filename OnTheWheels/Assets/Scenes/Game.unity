@@ -1702,7 +1702,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 1764013184}
   Cop: {fileID: 897260094}
-  nPowerUps: 4
 --- !u!1 &103564501
 GameObject:
   m_ObjectHideFlags: 0

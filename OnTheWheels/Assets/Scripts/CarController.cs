@@ -65,6 +65,10 @@ public class CarController : MonoBehaviour {
 	public Dictionary<string, bool> terrain;
 	public int cheatsheetsCaught = 0;
 
+	public float instantNitroTimer = 0;
+	public float instantSlowDownTimer = 0;
+	public float shieldTimer = 0;
+
 	void Start ()
 	{
         Player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -127,7 +131,7 @@ public class CarController : MonoBehaviour {
             }
 
             // Nitro control
-			if (Input.GetKey(nitroKey) && nitroTank > 0)
+			if (Input.GetKey(nitroKey) && nitroTank > 0 && throttle != 0)
             {
 				Debug.Log ("nitroactivated");
                 nitro = 1;
@@ -161,6 +165,11 @@ public class CarController : MonoBehaviour {
                 turn = 0;
             }
         }
+		if (instantNitroTimer > 0) {
+			instantNitroTimer -= Time.deltaTime;
+		}
+		instantSlowDownTimer -= Time.deltaTime;
+		shieldTimer -= Time.deltaTime;
     }
 
 	void FixedUpdate ()
@@ -176,6 +185,18 @@ public class CarController : MonoBehaviour {
 		// Longitudinal forces
 		Vector2 tractionForce = rb2d.transform.up * acceleration * throttle * terrainModifier;
 		tractionForce = tractionForce + tractionForce * nitro * nitroPower;
+		if (instantNitroTimer > 0) {
+			tractionForce += tractionForce * nitroPower;
+		} else {
+			instantNitroTimer = 0;
+		}
+
+		if (instantSlowDownTimer > 0) {
+			tractionForce -= tractionForce * 0.5f;
+		} else {
+			instantSlowDownTimer = 0;
+		}
+
 		nitroTank -= 0.01f * nitro;
 
 		// nitrotank can't be less than zero
@@ -210,6 +231,7 @@ public class CarController : MonoBehaviour {
 		//Debug.Log(other.gameObject.tag);
 		if(other.gameObject.tag == "PowerUp" && nitroTank < 1f)
 		{
+			MapController.PlaceNewPowerUp(other.gameObject.transform.position);
 			Destroy(other.gameObject);
 			this.nitroTank += 0.2f;
 
@@ -219,11 +241,33 @@ public class CarController : MonoBehaviour {
 
 		if(other.gameObject.tag == "ResistancePowerUp" && lifePoints < 1000f)
 		{
+			MapController.PlaceNewPowerUp(other.gameObject.transform.position);
 			Destroy(other.gameObject);
 			this.lifePoints += 200;
 
 			if (lifePoints > maxLifePoints)
 				lifePoints = maxLifePoints;
+		}
+
+		if(other.gameObject.tag == "InstantNitro")
+		{
+			MapController.PlaceNewPowerUp(other.gameObject.transform.position);
+			Destroy(other.gameObject);
+			this.instantNitroTimer = 2f;
+		}
+
+		if(other.gameObject.tag == "InstantSlowDown")
+		{
+			MapController.PlaceNewPowerUp(other.gameObject.transform.position);
+			Destroy(other.gameObject);
+			this.instantSlowDownTimer = 2f;
+		}
+
+		if(other.gameObject.tag == "Shield")
+		{
+			MapController.PlaceNewPowerUp(other.gameObject.transform.position);
+			Destroy(other.gameObject);
+			this.shieldTimer = 2f;
 		}
 
         if (other.gameObject.tag == "Cheatsheet" && !isCop)
@@ -234,7 +278,6 @@ public class CarController : MonoBehaviour {
 
 		if (other.gameObject.tag == "End" && !isCop && this.cheatsheetsCaught == MapController.nCheatsheets) //gameover condition
 		{
-			Debug.Log ("rip");
 			this.GameOver();
 		}
     }
@@ -243,12 +286,18 @@ public class CarController : MonoBehaviour {
     {
         //Debug.Log(other.gameObject.tag);
 		//Debug.Log ((rb2d.velocity).magnitude / this.resistance);
+		if(shieldTimer <= 0){
 		lifePoints -= (rb2d.velocity).magnitude / this.resistance;
 
-		if (lifePoints < minLifePoints)
+		if (lifePoints < minLifePoints) {
 			lifePoints = minLifePoints;
-		else if (lifePoints > maxLifePoints)
+			if (!isCop) {
+				this.GameOver ();
+			}
+		} else if (lifePoints > maxLifePoints) {
 			lifePoints = maxLifePoints;
+			}
+		}
     }
 
 	void GameOver(){
