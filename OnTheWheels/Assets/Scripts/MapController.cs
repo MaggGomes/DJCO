@@ -4,7 +4,43 @@ using UnityEngine;
 
 public class MapController : MonoBehaviour {
 
-	public static bool CopHumanController = true;
+    //create a new type
+    public class Car
+    {
+        public Sprite sprite;
+        public float acceleration;
+        public float grassModifier;
+        public float dirtModifier;
+        public float maxNitroTank;
+        public float maxLifePoints;
+        public float resistance;
+
+        //define a constructor for the class
+        public Car(Sprite sprite, float acceleration,float grassModifier, float dirtModifier, float maxNitroTank, float maxLifePoints, float resistance)
+        {
+            this.sprite = sprite;
+            this.acceleration = acceleration;
+            this.grassModifier = grassModifier;
+            this.dirtModifier = dirtModifier;
+            this.maxNitroTank = maxNitroTank;
+            this.maxLifePoints = maxLifePoints;
+            this.resistance = resistance;
+        }
+    }
+
+
+    public Car[] cars = new Car[]{
+        new Car(Resources.Load<Sprite>("Cars/1"), 2000f, 0.7f, 0.4f, 1f, 1000f,   1f),
+        new Car(Resources.Load<Sprite>("Cars/2"), 2000f, 0.7f, 0.4f, 1f, 1000f,   1f),
+        new Car(Resources.Load<Sprite>("Cars/3"), 2000f, 0.7f, 0.4f, 1f, 1000f,   1f),
+        new Car(Resources.Load<Sprite>("Cars/4"), 2000f, 0.7f, 0.4f, 1f, 1000f,   1f),
+        new Car(Resources.Load<Sprite>("Cars/5"), 2000f, 0.7f, 0.4f, 1f, 1000f,   1f),
+        new Car(Resources.Load<Sprite>("Cars/6"), 2000f, 0.7f, 0.4f, 1f, 1000f,   1f)
+    };
+
+    public int selectedCar = 0;
+
+    public static bool CopHumanController = true;
 
 	// starting positions of the player and corresponding possible positions of the cop
 	Dictionary<Vector3, Vector3[]> startingPositions = new Dictionary<Vector3, Vector3[]>() {
@@ -70,6 +106,14 @@ public class MapController : MonoBehaviour {
 		Player.GetComponent<CarController>().rightKey = KeyCode.D;
 		Player.GetComponent<CarController>().handbrakeKey = KeyCode.LeftShift;
 		Player.GetComponent<CarController>().nitroKey = KeyCode.LeftControl;
+        Car car = cars[selectedCar];
+        Player.GetComponent<CarController>().GetComponent<SpriteRenderer>().sprite = car.sprite;
+        Player.GetComponent<CarController>().acceleration = car.acceleration;
+        Player.GetComponent<CarController>().grassModifier = car.grassModifier;
+        Player.GetComponent<CarController>().dirtModifier = car.dirtModifier;
+        Player.GetComponent<CarController>().maxNitroTank = car.maxNitroTank;
+        Player.GetComponent<CarController>().maxLifePoints = car.maxLifePoints;
+        Player.GetComponent<CarController>().resistance = car.resistance;
         Player.tag = "Player";
         Player.name = "Player";
 
