@@ -70,9 +70,12 @@ TagManager:
   - name: Roads
     uniqueID: 267889693
     locked: 0
-  - name: Buildings
-    uniqueID: 870412163
-    locked: 0
   - name: Objects
     uniqueID: 351235107
+    locked: 0
+  - name: Building Shadows
+    uniqueID: 935422371
+    locked: 0
+  - name: Buildings
+    uniqueID: 870412163
     locked: 0
