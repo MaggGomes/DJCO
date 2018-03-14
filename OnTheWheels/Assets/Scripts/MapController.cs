@@ -28,17 +28,7 @@ public class MapController : MonoBehaviour {
         }
     }
 
-
-    public Car[] cars = new Car[]{
-        new Car(Resources.Load<Sprite>("Cars/1"), 2000f, 0.7f, 0.4f, 1f, 1000f,   1f),
-        new Car(Resources.Load<Sprite>("Cars/2"), 2000f, 0.7f, 0.4f, 1f, 1000f,   1f),
-        new Car(Resources.Load<Sprite>("Cars/3"), 2000f, 0.7f, 0.4f, 1f, 1000f,   1f),
-        new Car(Resources.Load<Sprite>("Cars/4"), 2000f, 0.7f, 0.4f, 1f, 1000f,   1f),
-        new Car(Resources.Load<Sprite>("Cars/5"), 2000f, 0.7f, 0.4f, 1f, 1000f,   1f),
-        new Car(Resources.Load<Sprite>("Cars/6"), 2000f, 0.7f, 0.4f, 1f, 1000f,   1f)
-    };
-
-    public int selectedCar = 0;
+    public static Car selectedCar;
 
     public static bool CopHumanController = true;
 
@@ -106,14 +96,13 @@ public class MapController : MonoBehaviour {
 		Player.GetComponent<CarController>().rightKey = KeyCode.D;
 		Player.GetComponent<CarController>().handbrakeKey = KeyCode.LeftShift;
 		Player.GetComponent<CarController>().nitroKey = KeyCode.LeftControl;
-        Car car = cars[selectedCar];
-        Player.GetComponent<CarController>().GetComponent<SpriteRenderer>().sprite = car.sprite;
-        Player.GetComponent<CarController>().acceleration = car.acceleration;
-        Player.GetComponent<CarController>().grassModifier = car.grassModifier;
-        Player.GetComponent<CarController>().dirtModifier = car.dirtModifier;
-        Player.GetComponent<CarController>().maxNitroTank = car.maxNitroTank;
-        Player.GetComponent<CarController>().maxLifePoints = car.maxLifePoints;
-        Player.GetComponent<CarController>().resistance = car.resistance;
+        Player.GetComponent<CarController>().GetComponent<SpriteRenderer>().sprite = selectedCar.sprite;
+        Player.GetComponent<CarController>().acceleration = selectedCar.acceleration;
+        Player.GetComponent<CarController>().grassModifier = selectedCar.grassModifier;
+        Player.GetComponent<CarController>().dirtModifier = selectedCar.dirtModifier;
+        Player.GetComponent<CarController>().maxNitroTank = selectedCar.maxNitroTank;
+        Player.GetComponent<CarController>().maxLifePoints = selectedCar.maxLifePoints;
+        Player.GetComponent<CarController>().resistance = selectedCar.resistance;
         Player.tag = "Player";
         Player.name = "Player";
 
