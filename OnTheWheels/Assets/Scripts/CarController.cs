@@ -103,16 +103,18 @@ public class CarController : MonoBehaviour {
 			{
 				if (turn <= 0) {
 					turn = 1;
-				}else if (turn < 50){
-						turn++;
+				}
+				else if (turn < 50){
+					turn += 1.5f;
 				}
             }
             else if (Input.GetKey(rightKey))
 			{
 				if (turn >= 0) {
 					turn = -1;
-				}else if (turn > -50){
-					turn--;
+				}
+				else if (turn > -50){
+					turn -= 1.5f;
 				}
             }
             else
