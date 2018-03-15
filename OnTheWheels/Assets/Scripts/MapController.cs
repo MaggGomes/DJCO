@@ -55,8 +55,8 @@ public class MapController : MonoBehaviour {
     public GameObject Player;
     public GameObject Cop;
 	InitialPosition[] playerStartingPositions = new InitialPosition[] {
-		new InitialPosition(1976, 4880,  225),
-		new InitialPosition(3762, 732,   295),
+		new InitialPosition(1976, -4880, 225),
+		new InitialPosition(3762, -732,  295),
 		new InitialPosition(3795, -5560, 285),
 		new InitialPosition(2680, -8430, 20),
 		new InitialPosition(1120, -8362, 20)
@@ -64,7 +64,7 @@ public class MapController : MonoBehaviour {
 
 	InitialPosition[] copStartingPositions = new InitialPosition[] {
 		new InitialPosition(2082, -4350, 180),
-		new InitialPosition(3655,  1278, 20),
+		new InitialPosition(3655, -1278, 20),
 		new InitialPosition(4412, -5428, 232),
 		new InitialPosition(2280, -8280, 290),
 		new InitialPosition(1340, -8841, 20)
