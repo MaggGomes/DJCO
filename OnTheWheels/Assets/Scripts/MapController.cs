@@ -125,6 +125,17 @@ public class MapController : MonoBehaviour {
 	GameObject Cheatsheet;
 	List<Vector3> ActiveCheatsheetsPositions = new List<Vector3> ();
 
+
+	// ========================================================================================
+	// End
+
+	private static GameObject End;
+	private static Vector3 EndPosition = new Vector3(2872, -3390, 0);
+	public static void SpawnEnd () {
+		End = GameObject.Instantiate(Resources.Load("End") as GameObject);
+		End.transform.position = EndPosition;
+	}
+
 	// ========================================================================================
 	// Counters
 

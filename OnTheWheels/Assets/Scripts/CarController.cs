@@ -272,13 +272,16 @@ public class CarController : MonoBehaviour {
 			this.shieldTimer = 2f;
 		}
 
-        if (other.gameObject.tag == "Cheatsheet" && !isCop)
+		if (other.gameObject.tag == "Cheatsheet" && this.cheatsheetsCaught < MapController.nCheatsheets && !isCop)
 		{
 			Destroy(other.gameObject);
 			this.cheatsheetsCaught++;
+			if (this.cheatsheetsCaught == MapController.nCheatsheets) {
+				MapController.SpawnEnd ();
+			}
 		}
 
-		if (other.gameObject.tag == "End" && !isCop && this.cheatsheetsCaught == MapController.nCheatsheets) //gameover condition
+		if (other.gameObject.tag == "End" && !isCop) //gameover condition
 		{
 			this.GameOver();
 		}
