@@ -59,6 +59,7 @@
      <Compile Include="Assets\Scripts\HUD\HUDController.cs" />
      <Compile Include="Assets\Scripts\MapController.cs" />
      <Compile Include="Assets\Scripts\RoadTrigger.cs" />
+     <Compile Include="Assets\Scripts\Rotation.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />

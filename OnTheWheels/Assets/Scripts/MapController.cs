@@ -91,16 +91,6 @@ public class MapController : MonoBehaviour {
 	static List<Vector3> activePowerUpsPositions = new List<Vector3>();
 	static List<Vector3> usedPowerUpsPositions = new List<Vector3>();
 
-	public static int nCheatsheets = 3;
-
-    static Vector3[] cheatsheetsPositions = {
-        new Vector3(3930, -3115, 0),
-        new Vector3(3970, -2625, 0),
-        new Vector3(3970, -2660, 0),
-    };
-    GameObject Cheatsheet;
-
-
 	public static void PlaceNewPowerUp(Vector3 position){
 		usedPowerUpsPositions.Remove(position); // remove from used positions
 
@@ -118,6 +108,23 @@ public class MapController : MonoBehaviour {
 	}
 
 
+
+	public static int nCheatsheets = 5;
+	static Vector3[] cheatsheetsPositions = {
+		new Vector3(1600, -8000, 0),
+		new Vector3(2000, -5750, 0),
+		new Vector3(3560, -5540, 0),
+		new Vector3(2100, -4070, 0),
+		new Vector3(1200, -2900, 0),
+		new Vector3(4220, -2160, 0),
+		new Vector3(4370, -1020, 0),
+		new Vector3(2330, -100,  0),
+		new Vector3(2130, -1700, 0),
+		new Vector3(4190, -7300, 0)
+	};
+	GameObject Cheatsheet;
+	List<Vector3> ActiveCheatsheetsPositions = new List<Vector3> ();
+
 	// ========================================================================================
 	// Counters
 
@@ -130,9 +137,9 @@ public class MapController : MonoBehaviour {
 
     void Start ()
     {
-		int scenarioIndex = Random.Range (0, playerStartingPositions.Length); // random position index of the cop
+		// Car Initialization
 
-        //TODO initialize cop with AI or controlled
+		int scenarioIndex = Random.Range (0, playerStartingPositions.Length);
 		Cop.transform.position = copStartingPositions[scenarioIndex].Position;
 		Cop.transform.rotation = copStartingPositions[scenarioIndex].Rotation;
 		Cop.GetComponent<CarController>().playerControlled = MapController.CopHumanController;
@@ -153,7 +160,6 @@ public class MapController : MonoBehaviour {
         Cop.tag = "Cop";
         Cop.name = "Cop";
 
-        //TODO initialize player with choosen car attributes
 		Player.transform.position = playerStartingPositions[scenarioIndex].Position;
 		Player.transform.rotation = playerStartingPositions[scenarioIndex].Rotation;
 		Player.GetComponent<CarController>().throttleKey = KeyCode.W;
@@ -173,6 +179,9 @@ public class MapController : MonoBehaviour {
         Player.tag = "Player";
         Player.name = "Player";
 
+
+		// Camera Assignment
+
         // assign camera to player car
         GameObject.FindGameObjectWithTag("Camera1").GetComponent<CameraController>().target = Player.transform;
 		GameObject.FindGameObjectWithTag("MiniMapCamera1").GetComponent<CameraController>().target = Player.transform;
@@ -190,7 +199,9 @@ public class MapController : MonoBehaviour {
 			GameObject.FindGameObjectWithTag ("MiniMapCamera2").GetComponent<CameraController> ().gameObject.SetActive (false);
 		}
 
-		// POWER UPS
+
+
+		// Powerups
 		for (var i = 0; i < nPowerUps; i++) {
 			int r1 = Random.Range (0, powerUpsPositions.Count); // random position
 			int r2 = Random.Range (0, powerUpsTypes.Length); // random power up type
@@ -204,12 +215,18 @@ public class MapController : MonoBehaviour {
 			PowerUp.transform.position = powerUpPosition;
 		}
 
-        foreach (Vector3 cheatsheetPosition in cheatsheetsPositions)
-        {
-            // These should be pooled and re-used
-            Cheatsheet = GameObject.Instantiate(Resources.Load("Cheatsheet") as GameObject);
-            Cheatsheet.transform.position = cheatsheetPosition;
-        }
+
+
+		// Cheatsheet placement
+		List<Vector3> pos = new List<Vector3>(cheatsheetsPositions);
+		for (int i = 0; i < nCheatsheets; i++) {
+			int index = Random.Range (0, pos.Count);
+			Cheatsheet = GameObject.Instantiate(Resources.Load("Cheatsheet") as GameObject);
+			Cheatsheet.AddComponent<Rotation> ();
+			Cheatsheet.transform.position = pos[index];
+			ActiveCheatsheetsPositions.Add(pos[index]);
+			pos.RemoveAt (index);
+		}
     }
 
 
