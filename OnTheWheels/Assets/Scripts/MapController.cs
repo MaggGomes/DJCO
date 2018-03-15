@@ -167,6 +167,7 @@ public class MapController : MonoBehaviour {
 		Cop.GetComponent<CarController>().rightKey = KeyCode.RightArrow;
 		Cop.GetComponent<CarController>().handbrakeKey = KeyCode.RightControl;
 		Cop.GetComponent<CarController>().nitroKey = KeyCode.Space;
+		Cop.GetComponent<CarController>().rocketKey = KeyCode.Return;
 		Cop.GetComponent<CarController>().GetComponent<SpriteRenderer>().sprite = policeSprites[currentPoliceSprite];
 		Cop.GetComponent<CarController>().acceleration = policeCar.acceleration;
 		Cop.GetComponent<CarController>().grassModifier = policeCar.grassModifier;
@@ -186,6 +187,7 @@ public class MapController : MonoBehaviour {
 		Player.GetComponent<CarController>().rightKey = KeyCode.D;
 		Player.GetComponent<CarController>().handbrakeKey = KeyCode.LeftShift;
 		Player.GetComponent<CarController>().nitroKey = KeyCode.LeftControl;
+		Player.GetComponent<CarController>().rocketKey = KeyCode.Q;
         Player.GetComponent<CarController>().GetComponent<SpriteRenderer>().sprite = selectedCar.sprite;
         Player.GetComponent<CarController>().acceleration = selectedCar.acceleration;
         Player.GetComponent<CarController>().grassModifier = selectedCar.grassModifier;

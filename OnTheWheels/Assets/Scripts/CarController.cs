@@ -53,9 +53,10 @@ public class CarController : MonoBehaviour {
     public KeyCode rightKey = KeyCode.RightArrow;
     public KeyCode handbrakeKey = KeyCode.Space;
 	public KeyCode nitroKey = KeyCode.RightControl;
+	public KeyCode rocketKey = KeyCode.X;
     
 
-    private Rigidbody2D rb2d;
+    public Rigidbody2D rb2d;
     private SpriteRenderer brokenSprite;
     private float throttle; // 1 forward; negative backwards; 0 static
 	private float turn; // 1 left; -1 right; 0 none
@@ -144,6 +145,13 @@ public class CarController : MonoBehaviour {
             {
                 nitro = 0;
             }
+
+			if (Input.GetKey (rocketKey)) {
+				if (hasRocket) {
+					RC.Launch ();
+					hasRocket = false;
+				}
+			}
         }
         else
         {
@@ -290,9 +298,10 @@ public class CarController : MonoBehaviour {
 		if (other.gameObject.tag == "Rocket") {
 			Destroy(other.gameObject);
 			hasRocket = true;
-			GameObject Rocket = GameObject.Instantiate(Resources.Load("Rocket") as GameObject);
+			GameObject Rocket = GameObject.Instantiate(Resources.Load("RocketObject") as GameObject);
 			RC = Rocket.AddComponent<RocketController> ();
 			RC.Car = this;
+			Physics2D.IgnoreCollision (RC.GetComponent<Collider2D> (), GetComponent<Collider2D> ());
 		}
 
 		if (other.gameObject.tag == "Cheatsheet" && this.cheatsheetsCaught < MapController.nCheatsheets && !isCop) {
@@ -310,19 +319,17 @@ public class CarController : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        //Debug.Log(other.gameObject.tag);
-		//Debug.Log ((rb2d.velocity).magnitude / this.resistance);
 		if(shieldTimer <= 0){
-		lifePoints -= (rb2d.velocity).magnitude / this.resistance;
+			lifePoints -= (rb2d.velocity).magnitude / this.resistance;
 
-		if (lifePoints < minLifePoints) {
-			lifePoints = minLifePoints;
-			if (!isCop) {
-				this.GameOver ();
-			}
-		} else if (lifePoints > maxLifePoints) {
-			lifePoints = maxLifePoints;
-			}
+			if (lifePoints < minLifePoints) {
+				lifePoints = minLifePoints;
+				if (!isCop) {
+					this.GameOver ();
+				}
+			} else if (lifePoints > maxLifePoints) {
+				lifePoints = maxLifePoints;
+				}
 		}
     }
 
