@@ -32,12 +32,8 @@ public class MapController : MonoBehaviour {
     public static Car selectedCar;
 	public static Car policeCar;
     public static bool CopHumanController = true;
-
 	static int currentPoliceSprite = 0;
-	static Sprite[] policeSprites = {
-		Resources.Load<Sprite> ("Cars/Police1"),
-		Resources.Load<Sprite> ("Cars/Police2")
-	};
+	Sprite[] policeSprites = new Sprite[2];
 
 
 	class InitialPosition
@@ -149,7 +145,8 @@ public class MapController : MonoBehaviour {
     void Start ()
     {
 		// Car Initialization
-
+		policeSprites[0] = Resources.Load<Sprite> ("Cars/Police1");
+		policeSprites[1] = Resources.Load<Sprite> ("Cars/Police2");
 		int scenarioIndex = Random.Range (0, playerStartingPositions.Length);
 		Cop.transform.position = copStartingPositions[scenarioIndex].Position;
 		Cop.transform.rotation = copStartingPositions[scenarioIndex].Rotation;
