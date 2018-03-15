@@ -19962,6 +19962,27 @@ Prefab:
       propertyPath: m_SortingOrder
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 212045312292577928, guid: a8fb07f67789efc47b8f3d8d06a0abbe,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9045a3ba1d81ee7478a0bd378822086b,
+        type: 3}
+    - target: {fileID: 212045312292577928, guid: a8fb07f67789efc47b8f3d8d06a0abbe,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 19.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 212045312292577928, guid: a8fb07f67789efc47b8f3d8d06a0abbe,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 212045312292577928, guid: a8fb07f67789efc47b8f3d8d06a0abbe,
+        type: 2}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a8fb07f67789efc47b8f3d8d06a0abbe, type: 2}
   m_IsPrefabParent: 0
@@ -54501,11 +54522,12 @@ PolygonCollider2D:
       - {x: 986, y: 803}
       - {x: 997, y: 835}
       - {x: 1010, y: 869}
-    - - {x: -927, y: 1390}
-      - {x: -924, y: 1391}
-      - {x: -924, y: 1394}
-      - {x: -927, y: 1395}
-      - {x: -929, y: 1393}
+    - - {x: -965.4552, y: 1367.3516}
+      - {x: -966.58386, y: 1365.5205}
+      - {x: -972.9536, y: 1371.4697}
+      - {x: -976.3816, y: 1374.4995}
+      - {x: -975.1279, y: 1371.7617}
+      - {x: -967.5731, y: 1368.936}
     - - {x: -927, y: 1573}
       - {x: -909, y: 1572}
       - {x: -687, y: 1560}

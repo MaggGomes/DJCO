@@ -16,7 +16,7 @@ public class MapController : MonoBehaviour {
         public float resistance;
 
         //define a constructor for the class
-        public Car(Sprite sprite, float acceleration,float grassModifier, float dirtModifier, float maxNitroTank, float maxLifePoints, float resistance)
+        public Car(Sprite sprite, float acceleration, float grassModifier, float dirtModifier, float maxNitroTank, float maxLifePoints, float resistance)
         {
             this.sprite = sprite;
             this.acceleration = acceleration;
@@ -29,8 +29,14 @@ public class MapController : MonoBehaviour {
     }
 
     public static Car selectedCar;
-
+	public static Car policeCar;
     public static bool CopHumanController = true;
+
+	static int currentPoliceSprite = 0;
+	static Sprite[] policeSprites = {
+		Resources.Load<Sprite> ("Cars/Police1"),
+		Resources.Load<Sprite> ("Cars/Police2")
+	};
 
 	// starting positions of the player and corresponding possible positions of the cop
 	Dictionary<Vector3, Vector3[]> startingPositions = new Dictionary<Vector3, Vector3[]>() {
@@ -69,6 +75,7 @@ public class MapController : MonoBehaviour {
     GameObject Cheatsheet;
 
 	public static float timeCounter = 0;
+	public static float spriteCounter = 0;
 
     // Use this for initialization
     void Start ()
@@ -76,6 +83,7 @@ public class MapController : MonoBehaviour {
 		List<Vector3> keys = new List<Vector3>(startingPositions.Keys);
 		Vector3 startingPlayerPosition = keys[Random.Range (0, keys.Count)]; // random position index of the player
 		int rCopIndex = Random.Range (0, startingPositions[startingPlayerPosition].Length); // random position index of the cop
+
         //TODO initialize cop with AI or controlled
 		Cop.transform.position = startingPositions[startingPlayerPosition][rCopIndex];
 		Cop.GetComponent<CarController>().playerControlled = MapController.CopHumanController;
@@ -85,6 +93,14 @@ public class MapController : MonoBehaviour {
 		Cop.GetComponent<CarController>().rightKey = KeyCode.RightArrow;
 		Cop.GetComponent<CarController>().handbrakeKey = KeyCode.RightControl;
 		Cop.GetComponent<CarController>().nitroKey = KeyCode.Space;
+		Cop.GetComponent<CarController>().GetComponent<SpriteRenderer>().sprite = policeSprites[currentPoliceSprite];
+		Cop.GetComponent<CarController>().acceleration = policeCar.acceleration;
+		Cop.GetComponent<CarController>().grassModifier = policeCar.grassModifier;
+		Cop.GetComponent<CarController>().dirtModifier = policeCar.dirtModifier;
+		Cop.GetComponent<CarController>().maxNitroTank = policeCar.maxNitroTank;
+		Cop.GetComponent<CarController>().maxLifePoints = policeCar.maxLifePoints;
+		Cop.GetComponent<CarController>().resistance = policeCar.resistance;
+		Cop.AddComponent<PolygonCollider2D> ();
         Cop.tag = "Cop";
         Cop.name = "Cop";
 
@@ -103,6 +119,7 @@ public class MapController : MonoBehaviour {
         Player.GetComponent<CarController>().maxNitroTank = selectedCar.maxNitroTank;
         Player.GetComponent<CarController>().maxLifePoints = selectedCar.maxLifePoints;
         Player.GetComponent<CarController>().resistance = selectedCar.resistance;
+		Player.AddComponent<PolygonCollider2D> ();
         Player.tag = "Player";
         Player.name = "Player";
 
@@ -149,6 +166,7 @@ public class MapController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		timeCounter += Time.deltaTime;
+		spriteCounter += Time.deltaTime;
 	}
 
 	public static void PlaceNewPowerUp(Vector3 position){
@@ -165,5 +183,13 @@ public class MapController : MonoBehaviour {
 		PowerUp.transform.position = powerUpPosition;
 
 		powerUpsPositions.Add(position); // after all add back to positions
+	}
+
+	void LateUpdate() {
+		if (spriteCounter > 0.3) {
+			currentPoliceSprite = (currentPoliceSprite + 1) % policeSprites.Length;
+			Cop.GetComponent<CarController>().GetComponent<SpriteRenderer>().sprite = policeSprites[currentPoliceSprite];
+			spriteCounter = 0;
+		}
 	}
 }
