@@ -70,6 +70,8 @@ public class CarController : MonoBehaviour {
 	public float instantSlowDownTimer = 0;
 	public float shieldTimer = 0;
 	public float switchControlsTimer = 0;
+	public float immunityTimer = 0;
+
 	public bool hasRocket = false;
 	public RocketController RC;
 
@@ -191,6 +193,9 @@ public class CarController : MonoBehaviour {
 			if (switchControlsTimer < 0) {
 				switchControls ();
 			}
+		}
+		if (immunityTimer > 0) {
+			immunityTimer -= Time.deltaTime;
 		}
     }
 
@@ -319,7 +324,7 @@ public class CarController : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D other)
     {
-		if(shieldTimer <= 0){
+		if(shieldTimer <= 0 && immunityTimer <= 0){
 			lifePoints -= (rb2d.velocity).magnitude / this.resistance;
 
 			if (lifePoints < minLifePoints) {
@@ -329,11 +334,13 @@ public class CarController : MonoBehaviour {
 				}
 			} else if (lifePoints > maxLifePoints) {
 				lifePoints = maxLifePoints;
-				}
+			}
+
+			immunityTimer = 0.3f;
 		}
     }
 
-	void GameOver(){
+	public void GameOver(){
 		SceneManager.LoadScene ("GameOver", LoadSceneMode.Single);
 	}
 

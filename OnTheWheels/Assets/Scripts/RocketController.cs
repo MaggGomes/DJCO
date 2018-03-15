@@ -44,6 +44,13 @@ public class RocketController : MonoBehaviour {
 		if (other.gameObject.tag == "Cop" || other.gameObject.tag == "Player") {
 			CarHit = other.gameObject.GetComponent<CarController> ();
 			CarHit.lifePoints -= 500;
+
+			if (CarHit.lifePoints < CarHit.minLifePoints) {
+				CarHit.lifePoints = CarHit.minLifePoints;
+				if (!CarHit.isCop) {
+					CarHit.GameOver ();
+				}
+			}
 		}
 	}
 
