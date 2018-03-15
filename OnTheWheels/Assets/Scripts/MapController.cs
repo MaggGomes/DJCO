@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class MapController : MonoBehaviour {
 
-    //create a new type
+	// ========================================================================================
+	// Cars
+
     public class Car
     {
         public Sprite sprite;
@@ -15,7 +17,6 @@ public class MapController : MonoBehaviour {
         public float maxLifePoints;
         public float resistance;
 
-        //define a constructor for the class
         public Car(Sprite sprite, float acceleration, float grassModifier, float dirtModifier, float maxNitroTank, float maxLifePoints, float resistance)
         {
             this.sprite = sprite;
@@ -38,14 +39,39 @@ public class MapController : MonoBehaviour {
 		Resources.Load<Sprite> ("Cars/Police2")
 	};
 
+
+	class InitialPosition
+	{
+		public Vector3 Position;
+		public Quaternion Rotation;
+
+		public InitialPosition(float x, float y, float angle) {
+			Position = new Vector3(x, y, 0);
+			Rotation = Quaternion.AngleAxis(angle, new Vector3(0, 0, 1));
+		}
+	}
+
 	// starting positions of the player and corresponding possible positions of the cop
-	Dictionary<Vector3, Vector3[]> startingPositions = new Dictionary<Vector3, Vector3[]>() {
-		{new Vector3(3857, -3716, 0), new Vector3[]{new Vector3(3857, -3760, 0), new Vector3(3857, -3790, 0)}},
-		{new Vector3(3857, -3640, 0), new Vector3[]{new Vector3(3857, -3715, 0)}},
-	};
     public GameObject Player;
     public GameObject Cop;
+	InitialPosition[] playerStartingPositions = new InitialPosition[] {
+		new InitialPosition(1976, 4880,  225),
+		new InitialPosition(3762, 732,   295),
+		new InitialPosition(3795, -5560, 285),
+		new InitialPosition(2680, -8430, 20),
+		new InitialPosition(1120, -8362, 20)
+	};
 
+	InitialPosition[] copStartingPositions = new InitialPosition[] {
+		new InitialPosition(2082, -4350, 180),
+		new InitialPosition(3655,  1278, 20),
+		new InitialPosition(4412, -5428, 232),
+		new InitialPosition(2280, -8280, 290),
+		new InitialPosition(1340, -8841, 20)
+	};
+		
+	// ========================================================================================
+	// Powerups & Cheatsheets
 
 	public static int nPowerUps = 3;
 	static string[] powerUpsTypes = {
@@ -74,18 +100,41 @@ public class MapController : MonoBehaviour {
     };
     GameObject Cheatsheet;
 
+
+	public static void PlaceNewPowerUp(Vector3 position){
+		usedPowerUpsPositions.Remove(position); // remove from used positions
+
+		int r1 = Random.Range (0, powerUpsPositions.Count); // random position
+		int r2 = Random.Range (0, powerUpsTypes.Length); // random power up type
+		Vector3 powerUpPosition = powerUpsPositions[r1]; // pick one position from the list
+		string powerUpType = powerUpsTypes[r2]; // pick one power up type
+		usedPowerUpsPositions.Add(powerUpPosition); // add to used positions
+		powerUpsPositions.Remove(powerUpPosition); // remove from positions
+
+		GameObject PowerUp = GameObject.Instantiate(Resources.Load(powerUpType) as GameObject);
+		PowerUp.transform.position = powerUpPosition;
+
+		powerUpsPositions.Add(position); // after all add back to positions
+	}
+
+
+	// ========================================================================================
+	// Counters
+
 	public static float timeCounter = 0;
 	public static float spriteCounter = 0;
 
-    // Use this for initialization
+    
+	// ========================================================================================
+	// Scene
+
     void Start ()
     {
-		List<Vector3> keys = new List<Vector3>(startingPositions.Keys);
-		Vector3 startingPlayerPosition = keys[Random.Range (0, keys.Count)]; // random position index of the player
-		int rCopIndex = Random.Range (0, startingPositions[startingPlayerPosition].Length); // random position index of the cop
+		int scenarioIndex = Random.Range (0, playerStartingPositions.Length); // random position index of the cop
 
         //TODO initialize cop with AI or controlled
-		Cop.transform.position = startingPositions[startingPlayerPosition][rCopIndex];
+		Cop.transform.position = copStartingPositions[scenarioIndex].Position;
+		Cop.transform.rotation = copStartingPositions[scenarioIndex].Rotation;
 		Cop.GetComponent<CarController>().playerControlled = MapController.CopHumanController;
 		Cop.GetComponent<CarController>().throttleKey = KeyCode.UpArrow;
 		Cop.GetComponent<CarController>().brakeKey = KeyCode.DownArrow;
@@ -105,7 +154,8 @@ public class MapController : MonoBehaviour {
         Cop.name = "Cop";
 
         //TODO initialize player with choosen car attributes
-		Player.transform.position = startingPlayerPosition;
+		Player.transform.position = playerStartingPositions[scenarioIndex].Position;
+		Player.transform.rotation = playerStartingPositions[scenarioIndex].Rotation;
 		Player.GetComponent<CarController>().throttleKey = KeyCode.W;
 		Player.GetComponent<CarController>().brakeKey = KeyCode.S;
 		Player.GetComponent<CarController>().leftKey = KeyCode.A;
@@ -158,32 +208,16 @@ public class MapController : MonoBehaviour {
         {
             // These should be pooled and re-used
             Cheatsheet = GameObject.Instantiate(Resources.Load("Cheatsheet") as GameObject);
-
             Cheatsheet.transform.position = cheatsheetPosition;
         }
     }
-	
-	// Update is called once per frame
+
+
 	void Update () {
 		timeCounter += Time.deltaTime;
 		spriteCounter += Time.deltaTime;
 	}
 
-	public static void PlaceNewPowerUp(Vector3 position){
-		usedPowerUpsPositions.Remove(position); // remove from used positions
-
-		int r1 = Random.Range (0, powerUpsPositions.Count); // random position
-		int r2 = Random.Range (0, powerUpsTypes.Length); // random power up type
-		Vector3 powerUpPosition = powerUpsPositions[r1]; // pick one position from the list
-		string powerUpType = powerUpsTypes[r2]; // pick one power up type
-		usedPowerUpsPositions.Add(powerUpPosition); // add to used positions
-		powerUpsPositions.Remove(powerUpPosition); // remove from positions
-
-		GameObject PowerUp = GameObject.Instantiate(Resources.Load(powerUpType) as GameObject);
-		PowerUp.transform.position = powerUpPosition;
-
-		powerUpsPositions.Add(position); // after all add back to positions
-	}
 
 	void LateUpdate() {
 		if (spriteCounter > 0.3) {

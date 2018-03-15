@@ -1197,8 +1197,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7290c479f28e7114c822f4e5b41aa326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   rotationSmoothness: 1
+  target: {fileID: 0}
 --- !u!81 &103564503
 AudioListener:
   m_ObjectHideFlags: 0
@@ -12378,8 +12378,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7290c479f28e7114c822f4e5b41aa326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   rotationSmoothness: 1
+  target: {fileID: 0}
 --- !u!4 &590298698
 Transform:
   m_ObjectHideFlags: 0
@@ -19903,11 +19903,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4549328381745582, guid: a8fb07f67789efc47b8f3d8d06a0abbe, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 4294.2
+      value: 1123.8
       objectReference: {fileID: 0}
     - target: {fileID: 4549328381745582, guid: a8fb07f67789efc47b8f3d8d06a0abbe, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -3779
+      value: -8362.4
       objectReference: {fileID: 0}
     - target: {fileID: 4549328381745582, guid: a8fb07f67789efc47b8f3d8d06a0abbe, type: 2}
       propertyPath: m_LocalPosition.z
@@ -19923,11 +19923,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4549328381745582, guid: a8fb07f67789efc47b8f3d8d06a0abbe, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: 0.17364816
       objectReference: {fileID: 0}
     - target: {fileID: 4549328381745582, guid: a8fb07f67789efc47b8f3d8d06a0abbe, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.9848078
       objectReference: {fileID: 0}
     - target: {fileID: 4549328381745582, guid: a8fb07f67789efc47b8f3d8d06a0abbe, type: 2}
       propertyPath: m_RootOrder
@@ -19983,6 +19983,14 @@ Prefab:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4549328381745582, guid: a8fb07f67789efc47b8f3d8d06a0abbe, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4549328381745582, guid: a8fb07f67789efc47b8f3d8d06a0abbe, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a8fb07f67789efc47b8f3d8d06a0abbe, type: 2}
   m_IsPrefabParent: 0
@@ -20021,8 +20029,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7290c479f28e7114c822f4e5b41aa326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   rotationSmoothness: 1
+  target: {fileID: 0}
 --- !u!81 &922986738
 AudioListener:
   m_ObjectHideFlags: 0
@@ -35953,7 +35961,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 247.2517, y: -20.21}
+  m_AnchoredPosition: {x: 247.2517, y: -20.210022}
   m_SizeDelta: {x: 55.9, y: 20.43}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1467937579
@@ -46845,8 +46853,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7290c479f28e7114c822f4e5b41aa326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   rotationSmoothness: 1
+  target: {fileID: 0}
 --- !u!1 &1747682621
 GameObject:
   m_ObjectHideFlags: 0
