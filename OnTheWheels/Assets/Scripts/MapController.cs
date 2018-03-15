@@ -69,41 +69,51 @@ public class MapController : MonoBehaviour {
 	// ========================================================================================
 	// Powerups & Cheatsheets
 
-	public static int nPowerUps = 3;
 	static string[] powerUpsTypes = {
 		"PowerUp",
 		"ResistancePowerUp",
 		"InstantNitro",
 		"InstantSlowDown",
-		"Shield"
+		"Shield",
+		"Rocket",
+		"Shield",
+		"Switch",
+		"SwitchOpp"
 	};
 	static List<Vector3> powerUpsPositions = new List<Vector3>(new Vector3[]{
-        new Vector3(3900, -3115, 0),
-		new Vector3(3945, -2625, 0),
-		new Vector3(3800, -3115, 0),
-		new Vector3(4000, -2625, 0),
+        new Vector3(2670,  800,  0),
+		new Vector3(2200, -230,  0),
+		new Vector3(2500, -250,  0),
+		new Vector3(4800, -1200, 0),
+		new Vector3(4800, -1800, 0),
+		new Vector3(4000, -2050, 0),
+		new Vector3(2950, -2580, 0),
+		new Vector3(1200, -2550, 0),
+		new Vector3(1060, -3480, 0),
+		new Vector3(2200, -4030, 0),
+		new Vector3(3000, -4500, 0),
+		new Vector3(4150, -4700, 0),
+		new Vector3(4700, -3900, 0),
+		new Vector3(5000, -4300, 0),
+		new Vector3(4030, -5140, 0),
+		new Vector3(4570, -5900, 0),
+		new Vector3(2140, -5370, 0),
+		new Vector3(200,  -5150, 0),
+		new Vector3(230,  -5800, 0),
+		new Vector3(1100, -6560, 0),
+		new Vector3(1600, -7500, 0),
+		new Vector3(1000, -8160, 0),
+		new Vector3(1940, -8810, 0),
+		new Vector3(2340, -9500, 0),
+		new Vector3(3600, -9400, 0),
+		new Vector3(2590, -7060, 0),
+		new Vector3(3720, -6800, 0),
+		new Vector3(2810, -7920, 0),
+		new Vector3(3200, -8900, 0),
+		new Vector3(3900, -8130, 0)
 	});
-
-	static List<Vector3> activePowerUpsPositions = new List<Vector3>();
-	static List<Vector3> usedPowerUpsPositions = new List<Vector3>();
-
-	public static void PlaceNewPowerUp(Vector3 position){
-		usedPowerUpsPositions.Remove(position); // remove from used positions
-
-		int r1 = Random.Range (0, powerUpsPositions.Count); // random position
-		int r2 = Random.Range (0, powerUpsTypes.Length); // random power up type
-		Vector3 powerUpPosition = powerUpsPositions[r1]; // pick one position from the list
-		string powerUpType = powerUpsTypes[r2]; // pick one power up type
-		usedPowerUpsPositions.Add(powerUpPosition); // add to used positions
-		powerUpsPositions.Remove(powerUpPosition); // remove from positions
-
-		GameObject PowerUp = GameObject.Instantiate(Resources.Load(powerUpType) as GameObject);
-		PowerUp.transform.position = powerUpPosition;
-
-		powerUpsPositions.Add(position); // after all add back to positions
-	}
-
-
+	GameObject Powerup;
+	static List<Vector3> ActivePowerUpsPositions = new List<Vector3>();
 
 	public static int nCheatsheets = 5;
 	static Vector3[] cheatsheetsPositions = {
@@ -208,21 +218,15 @@ public class MapController : MonoBehaviour {
 		}
 
 
-
 		// Powerups
-		for (var i = 0; i < nPowerUps; i++) {
-			int r1 = Random.Range (0, powerUpsPositions.Count); // random position
-			int r2 = Random.Range (0, powerUpsTypes.Length); // random power up type
-			Vector3 powerUpPosition = powerUpsPositions[r1]; // pick one position from the list
-			string powerUpType = powerUpsTypes[r2]; // pick one power up type
-			usedPowerUpsPositions.Add(powerUpPosition); // add to used positions
-			powerUpsPositions.Remove(powerUpPosition); // remove from positions
-
-			GameObject PowerUp = GameObject.Instantiate(Resources.Load(powerUpType) as GameObject);
-
-			PowerUp.transform.position = powerUpPosition;
+		for (int i = 0; i < powerUpsPositions.Count; i++) {
+			string typeName = powerUpsTypes[Random.Range (0, powerUpsTypes.Length)];
+			typeName = "Rocket";
+			Powerup = GameObject.Instantiate(Resources.Load(typeName) as GameObject);
+			Powerup.AddComponent<Rotation> ();
+			Powerup.transform.position = powerUpsPositions[i];
+			ActivePowerUpsPositions.Add(powerUpsPositions[i]);
 		}
-
 
 
 		// Cheatsheet placement

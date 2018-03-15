@@ -24,6 +24,9 @@ TagManager:
   - InstantNitro
   - InstantSlowDown
   - Shield
+  - Rocket
+  - Switch
+  - SwitchOpp
   layers:
   - Default
   - TransparentFX

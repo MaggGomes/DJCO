@@ -68,6 +68,9 @@ public class CarController : MonoBehaviour {
 	public float instantNitroTimer = 0;
 	public float instantSlowDownTimer = 0;
 	public float shieldTimer = 0;
+	public float switchControlsTimer = 0;
+	public bool hasRocket = false;
+	public RocketController RC;
 
 	void Start ()
 	{
@@ -135,7 +138,6 @@ public class CarController : MonoBehaviour {
             // Nitro control
 			if (Input.GetKey(nitroKey) && nitroTank > 0 && throttle != 0)
             {
-				Debug.Log ("nitroactivated");
                 nitro = 1;
             }
             else
@@ -170,8 +172,18 @@ public class CarController : MonoBehaviour {
 		if (instantNitroTimer > 0) {
 			instantNitroTimer -= Time.deltaTime;
 		}
-		instantSlowDownTimer -= Time.deltaTime;
-		shieldTimer -= Time.deltaTime;
+		if (instantSlowDownTimer > 0) {
+			instantSlowDownTimer -= Time.deltaTime;
+		}
+		if (shieldTimer > 0) {
+			shieldTimer -= Time.deltaTime;
+		}
+		if (switchControlsTimer > 0) {
+			switchControlsTimer -= Time.deltaTime;
+			if (switchControlsTimer < 0) {
+				switchControls ();
+			}
+		}
     }
 
 	void FixedUpdate ()
@@ -227,53 +239,63 @@ public class CarController : MonoBehaviour {
 
 		//Debug.Log (rb2d.velocity.magnitude);
     }
-
+		
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		//Debug.Log(other.gameObject.tag);
-		if(other.gameObject.tag == "PowerUp" && nitroTank < 1f)
-		{
-			MapController.PlaceNewPowerUp(other.gameObject.transform.position);
+		if (other.gameObject.tag == "PowerUp" && nitroTank < 1f) {
 			Destroy(other.gameObject);
-			this.nitroTank += 0.2f;
-
+			this.nitroTank += 1f;
 			if (nitroTank > maxNitroTank)
 				nitroTank = maxNitroTank;
 		}
 
-		if(other.gameObject.tag == "ResistancePowerUp" && lifePoints < 1000f)
-		{
-			MapController.PlaceNewPowerUp(other.gameObject.transform.position);
+		if (other.gameObject.tag == "ResistancePowerUp" && lifePoints < 1000f) {
 			Destroy(other.gameObject);
-			this.lifePoints += 200;
-
+			this.lifePoints += 1000;
 			if (lifePoints > maxLifePoints)
 				lifePoints = maxLifePoints;
 		}
 
-		if(other.gameObject.tag == "InstantNitro")
-		{
-			MapController.PlaceNewPowerUp(other.gameObject.transform.position);
+		if (other.gameObject.tag == "InstantNitro") {
 			Destroy(other.gameObject);
-			this.instantNitroTimer = 2f;
+			this.instantNitroTimer = 5f;
 		}
 
-		if(other.gameObject.tag == "InstantSlowDown")
-		{
-			MapController.PlaceNewPowerUp(other.gameObject.transform.position);
+		if (other.gameObject.tag == "InstantSlowDown") {
 			Destroy(other.gameObject);
-			this.instantSlowDownTimer = 2f;
+			this.instantSlowDownTimer = 5f;
 		}
 
-		if(other.gameObject.tag == "Shield")
-		{
-			MapController.PlaceNewPowerUp(other.gameObject.transform.position);
+		if (other.gameObject.tag == "Shield") {
 			Destroy(other.gameObject);
-			this.shieldTimer = 2f;
+			this.shieldTimer = 5f;
 		}
 
-		if (other.gameObject.tag == "Cheatsheet" && this.cheatsheetsCaught < MapController.nCheatsheets && !isCop)
-		{
+		if (other.gameObject.tag == "Switch") {
+			Destroy(other.gameObject);
+			this.switchControlsTimer = 5f;
+			switchControls ();
+		}
+
+		if (other.gameObject.tag == "SwitchOpp") {
+			Destroy(other.gameObject);
+			if (tag == "Player") {
+				GameObject.FindGameObjectWithTag ("Cop").GetComponent<CarController> ().switchControls ();
+			}
+			else if (tag == "Cop") {
+				GameObject.FindGameObjectWithTag ("Player").GetComponent<CarController> ().switchControls ();
+			}
+		}
+
+		if (other.gameObject.tag == "Rocket") {
+			Destroy(other.gameObject);
+			hasRocket = true;
+			GameObject Rocket = GameObject.Instantiate(Resources.Load("Rocket") as GameObject);
+			RC = Rocket.AddComponent<RocketController> ();
+			RC.Car = this;
+		}
+
+		if (other.gameObject.tag == "Cheatsheet" && this.cheatsheetsCaught < MapController.nCheatsheets && !isCop) {
 			Destroy(other.gameObject);
 			this.cheatsheetsCaught++;
 			if (this.cheatsheetsCaught == MapController.nCheatsheets) {
@@ -281,8 +303,7 @@ public class CarController : MonoBehaviour {
 			}
 		}
 
-		if (other.gameObject.tag == "End" && !isCop) //gameover condition
-		{
+		if (other.gameObject.tag == "End" && !isCop) {
 			this.GameOver();
 		}
     }
@@ -307,5 +328,11 @@ public class CarController : MonoBehaviour {
 
 	void GameOver(){
 		SceneManager.LoadScene ("GameOver", LoadSceneMode.Single);
+	}
+
+	public void switchControls() {
+		KeyCode tmp = leftKey;
+		leftKey = rightKey;
+		rightKey = tmp;
 	}
 }
