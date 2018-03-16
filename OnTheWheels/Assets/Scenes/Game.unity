@@ -1462,7 +1462,7 @@ GameObject:
   - component: {fileID: 158681379}
   m_Layer: 5
   m_Name: MultiPlayerLose
-  m_TagString: Untagged
+  m_TagString: MultiPlayerLose
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11464,7 +11464,7 @@ GameObject:
   - component: {fileID: 536233674}
   m_Layer: 5
   m_Name: SinglePlayerLose
-  m_TagString: Untagged
+  m_TagString: SinglePlayerLose
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13142,7 +13142,14 @@ MonoBehaviour:
   cheatSheetText: {fileID: 1208455339}
   timer: {fileID: 1619747532}
   Player: {fileID: 0}
+  Opponent: {fileID: 0}
+  CheatSheets: []
   PlayerArrow: {fileID: 0}
+  CheatSheetArrows: []
+  EndArrow: {fileID: 0}
+  Camera: {fileID: 0}
+  ArrowOrigin: {x: 0, y: 0}
+  pickedUp: 0
 --- !u!223 &654436608
 Canvas:
   m_ObjectHideFlags: 0
@@ -33420,7 +33427,7 @@ GameObject:
   - component: {fileID: 1355779797}
   m_Layer: 5
   m_Name: MultiPlayerWin
-  m_TagString: Untagged
+  m_TagString: MultiPlayerWin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38094,7 +38101,14 @@ MonoBehaviour:
   cheatSheetText: {fileID: 1208455339}
   timer: {fileID: 1619747532}
   Player: {fileID: 0}
+  Opponent: {fileID: 0}
+  CheatSheets: []
   PlayerArrow: {fileID: 0}
+  CheatSheetArrows: []
+  EndArrow: {fileID: 0}
+  Camera: {fileID: 0}
+  ArrowOrigin: {x: 0, y: 0}
+  pickedUp: 0
 --- !u!1 &1619747529
 GameObject:
   m_ObjectHideFlags: 0
@@ -38265,7 +38279,7 @@ GameObject:
   - component: {fileID: 1688879452}
   m_Layer: 5
   m_Name: SinglePlayerWin
-  m_TagString: Player
+  m_TagString: SinglePlayerWin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

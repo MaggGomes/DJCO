@@ -30,6 +30,9 @@ TagManager:
   - MiniCar1
   - MiniCar2
   - SinglePlayerWin
+  - SinglePlayerLose
+  - MultiPlayerWin
+  - MultiPlayerLose
   layers:
   - Default
   - TransparentFX
