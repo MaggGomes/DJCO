@@ -332,7 +332,7 @@ public class CarController : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D other)
     {
 		if(shieldTimer <= 0 && immunityTimer <= 0){
-			lifePoints -= (rb2d.velocity).magnitude / this.resistance;
+			lifePoints -= (rb2d.velocity).magnitude / this.resistance / 2;
 
 			if (lifePoints < minLifePoints) {
 				lifePoints = minLifePoints;

@@ -27,6 +27,8 @@ TagManager:
   - Rocket
   - Switch
   - SwitchOpp
+  - MiniCar1
+  - MiniCar2
   layers:
   - Default
   - TransparentFX

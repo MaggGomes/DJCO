@@ -2015,7 +2015,7 @@ GameObject:
   - component: {fileID: 356762748}
   m_Layer: 5
   m_Name: Arrow
-  m_TagString: Untagged
+  m_TagString: MiniCar1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12707,7 +12707,7 @@ GameObject:
   - component: {fileID: 751463261}
   m_Layer: 5
   m_Name: Arrow
-  m_TagString: Untagged
+  m_TagString: MiniCar2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
