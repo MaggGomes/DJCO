@@ -141,7 +141,7 @@ public class CarController : MonoBehaviour {
             }
 
             // Nitro control
-			if (Input.GetKey(nitroKey) && nitroTank > 0 && throttle != 0)
+			if (Input.GetKey(nitroKey) && nitroTank > 0.01f && throttle != 0)
             {
                 nitro = 1;
 				flames.enabled = true;
@@ -194,7 +194,7 @@ public class CarController : MonoBehaviour {
 		}
 		if (switchControlsTimer > 0) {
 			switchControlsTimer -= Time.deltaTime;
-			if (switchControlsTimer < 0) {
+			if (switchControlsTimer <= 0) {
 				switchControls ();
 			}
 		}
@@ -233,6 +233,10 @@ public class CarController : MonoBehaviour {
 		// nitrotank can't be less than zero
 		if (nitroTank < minNitroTank)
 			nitroTank = minNitroTank;
+
+		if (nitroTank < maxNitroTank) {
+			nitroTank += 0.0005f;
+		}
 		
 		Vector2 dragForce = -dragConstant * rb2d.velocity * rb2d.velocity.magnitude;
 		Vector2 frictionForce = -frictionConstant * rb2d.velocity;
@@ -311,7 +315,7 @@ public class CarController : MonoBehaviour {
 			}
 		}
 
-		if (other.gameObject.tag == "Rocket") {
+		if (other.gameObject.tag == "Rocket" && !hasRocket) {
 			Destroy(other.gameObject);
 			hasRocket = true;
 			GameObject Rocket = GameObject.Instantiate(Resources.Load("RocketObject") as GameObject);
@@ -336,7 +340,7 @@ public class CarController : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D other)
     {
 		if(shieldTimer <= 0 && immunityTimer <= 0){
-			lifePoints -= (rb2d.velocity).magnitude / this.resistance / 2;
+			lifePoints -= (rb2d.velocity).magnitude / this.resistance;
 
 			if (lifePoints < minLifePoints) {
 				lifePoints = minLifePoints;
