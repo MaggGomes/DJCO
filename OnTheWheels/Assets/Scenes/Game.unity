@@ -24347,7 +24347,7 @@ SpriteRenderer:
   m_Size: {x: 2900, y: 4400}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
 --- !u!60 &1024845550
 PolygonCollider2D:
@@ -46924,15 +46924,13 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 114498847128923032, guid: a8fb07f67789efc47b8f3d8d06a0abbe,
-        type: 2}
-      propertyPath: dragConstant
-      value: 0.05
+    - target: {fileID: 4064818786608568, guid: a8fb07f67789efc47b8f3d8d06a0abbe, type: 2}
+      propertyPath: m_RootOrder
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114498847128923032, guid: a8fb07f67789efc47b8f3d8d06a0abbe,
-        type: 2}
-      propertyPath: brakingConstant
-      value: 0.1
+    - target: {fileID: 4630257227059494, guid: a8fb07f67789efc47b8f3d8d06a0abbe, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a8fb07f67789efc47b8f3d8d06a0abbe, type: 2}

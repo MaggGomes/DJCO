@@ -57,7 +57,8 @@ public class CarController : MonoBehaviour {
     
 
     public Rigidbody2D rb2d;
-    private SpriteRenderer brokenSprite;
+	private SpriteRenderer brokenSprite;
+	private SpriteRenderer flames;
     private float throttle; // 1 forward; negative backwards; 0 static
 	private float turn; // 1 left; -1 right; 0 none
 	private int handbrake; // 1 on; 0 off
@@ -81,7 +82,8 @@ public class CarController : MonoBehaviour {
 		rb2d = GetComponent<Rigidbody2D> ();
 		GetComponent<SpriteRenderer> ().sprite = sprite;
         brokenSprite = this.transform.Find("BrokenSprite").gameObject.GetComponent<SpriteRenderer>();
-        terrain = new Dictionary<string, bool> ();
+		flames = this.transform.Find ("Flames").gameObject.GetComponent<SpriteRenderer> ();
+		terrain = new Dictionary<string, bool> ();
 		terrain.Add ("dirt", false);
 		terrain.Add ("road", false);
 	}
@@ -142,10 +144,12 @@ public class CarController : MonoBehaviour {
 			if (Input.GetKey(nitroKey) && nitroTank > 0 && throttle != 0)
             {
                 nitro = 1;
+				flames.enabled = true;
             }
             else
             {
-                nitro = 0;
+				nitro = 0;
+				flames.enabled = false;
             }
 
 			if (Input.GetKey (rocketKey)) {
