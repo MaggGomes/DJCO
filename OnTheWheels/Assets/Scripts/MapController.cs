@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MapController : MonoBehaviour {
 
@@ -205,6 +206,7 @@ public class MapController : MonoBehaviour {
         // assign camera to player car
         GameObject.FindGameObjectWithTag("Camera1").GetComponent<CameraController>().target = Player.transform;
 		GameObject.FindGameObjectWithTag("MiniMapCamera1").GetComponent<CameraController>().target = Player.transform;
+		GameObject.FindGameObjectWithTag("MiniCar1").GetComponent<RawImage>().texture = selectedCar.sprite.texture;
 
         // assign main camera to player cop
 		if (Cop.GetComponent<CarController> ().playerControlled) {
@@ -212,6 +214,7 @@ public class MapController : MonoBehaviour {
 			GameObject.FindGameObjectWithTag ("Camera2").GetComponent<CameraController> ().target = Cop.transform;
 			GameObject.FindGameObjectWithTag ("Camera2").GetComponent<Camera> ().rect = new Rect (0.5f, 0f, 0.5f, 1f);
 			GameObject.FindGameObjectWithTag("MiniMapCamera2").GetComponent<CameraController>().target = Cop.transform;
+			//GameObject.FindGameObjectWithTag("MiniCar2").GetComponent<RawImage>().texture = Cop.GetComponent<CarController>().sprite.texture;
 		} else {
 			// Disables Camera 2
 			GameObject.FindGameObjectWithTag ("Camera2").GetComponent<CameraController> ().gameObject.SetActive (false);
@@ -223,7 +226,6 @@ public class MapController : MonoBehaviour {
 		// Powerups
 		for (int i = 0; i < powerUpsPositions.Count; i++) {
 			string typeName = powerUpsTypes[Random.Range (0, powerUpsTypes.Length)];
-			typeName = "Rocket";
 			Powerup = GameObject.Instantiate(Resources.Load(typeName) as GameObject);
 			Powerup.AddComponent<Rotation> ();
 			Powerup.transform.position = powerUpsPositions[i];
@@ -254,6 +256,7 @@ public class MapController : MonoBehaviour {
 		if (spriteCounter > 0.3) {
 			currentPoliceSprite = (currentPoliceSprite + 1) % policeSprites.Length;
 			Cop.GetComponent<CarController>().GetComponent<SpriteRenderer>().sprite = policeSprites[currentPoliceSprite];
+			GameObject.FindGameObjectWithTag("MiniCar2").GetComponent<RawImage>().texture = policeSprites[currentPoliceSprite].texture;
 			spriteCounter = 0;
 		}
 	}
