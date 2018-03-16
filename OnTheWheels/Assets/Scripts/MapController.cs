@@ -129,7 +129,7 @@ public class MapController : MonoBehaviour {
 		new Vector3(2130, -1700, 0),
 		new Vector3(4190, -7300, 0)
 	};
-	GameObject Cheatsheet;
+	public List<GameObject> Cheatsheets = new List<GameObject>();
 	List<Vector3> ActiveCheatsheetsPositions = new List<Vector3> ();
 
 
@@ -149,6 +149,11 @@ public class MapController : MonoBehaviour {
 	public static float timeCounter = 0;
 	public static float spriteCounter = 0;
 
+	// ========================================================================================
+	// HUDs
+
+	public GameObject HUD1;
+	public GameObject HUD2;
     
 	// ========================================================================================
 	// Scene
@@ -202,6 +207,8 @@ public class MapController : MonoBehaviour {
 
 
 		// Camera Assignment
+		HUD1 = GameObject.FindGameObjectWithTag ("HUD1");
+		HUD2 = GameObject.FindGameObjectWithTag ("HUD2");
 
         // assign camera to player car
         GameObject.FindGameObjectWithTag("Camera1").GetComponent<CameraController>().target = Player.transform;
@@ -218,7 +225,7 @@ public class MapController : MonoBehaviour {
 		} else {
 			// Disables Camera 2
 			GameObject.FindGameObjectWithTag ("Camera2").GetComponent<CameraController> ().gameObject.SetActive (false);
-			GameObject.FindGameObjectWithTag ("HUD2").GetComponent<HUDController> ().gameObject.SetActive (false);
+			HUD2.GetComponent<HUDController> ().gameObject.SetActive (false);
 			GameObject.FindGameObjectWithTag ("MiniMapCamera2").GetComponent<CameraController> ().gameObject.SetActive (false);
 		}
 
@@ -237,18 +244,29 @@ public class MapController : MonoBehaviour {
 		List<Vector3> pos = new List<Vector3>(cheatsheetsPositions);
 		for (int i = 0; i < nCheatsheets; i++) {
 			int index = Random.Range (0, pos.Count);
-			Cheatsheet = GameObject.Instantiate(Resources.Load("Cheatsheet") as GameObject);
+			GameObject Cheatsheet = GameObject.Instantiate(Resources.Load("Cheatsheet") as GameObject);
 			Cheatsheet.AddComponent<Rotation> ();
 			Cheatsheet.transform.position = pos[index];
+			Cheatsheets.Add (Cheatsheet);
 			ActiveCheatsheetsPositions.Add(pos[index]);
 			pos.RemoveAt (index);
 		}
+
+		HUD1.GetComponent<HUDController> ().Player = Player;
+		HUD1.GetComponent<HUDController> ().Opponent = Cop;
+		HUD1.GetComponent<HUDController> ().Camera = GameObject.FindGameObjectWithTag("Camera1").GetComponent<CameraController>();
+		HUD1.GetComponent<HUDController> ().CheatSheets = Cheatsheets;
+		HUD2.GetComponent<HUDController> ().Player = Cop;
+		HUD2.GetComponent<HUDController> ().Opponent = Player;
+		HUD2.GetComponent<HUDController> ().Camera = GameObject.FindGameObjectWithTag("Camera2").GetComponent<CameraController>();
     }
 
 
 	void Update () {
 		timeCounter += Time.deltaTime;
 		spriteCounter += Time.deltaTime;
+
+
 	}
 
 
