@@ -29,6 +29,7 @@ TagManager:
   - SwitchOpp
   - MiniCar1
   - MiniCar2
+  - SinglePlayerWin
   layers:
   - Default
   - TransparentFX
