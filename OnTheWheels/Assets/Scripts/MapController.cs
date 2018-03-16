@@ -256,7 +256,9 @@ public class MapController : MonoBehaviour {
 		if (spriteCounter > 0.3) {
 			currentPoliceSprite = (currentPoliceSprite + 1) % policeSprites.Length;
 			Cop.GetComponent<CarController>().GetComponent<SpriteRenderer>().sprite = policeSprites[currentPoliceSprite];
-			GameObject.FindGameObjectWithTag("MiniCar2").GetComponent<RawImage>().texture = policeSprites[currentPoliceSprite].texture;
+			if(CopHumanController)
+				GameObject.FindGameObjectWithTag("MiniCar2").GetComponent<RawImage>().texture = policeSprites[currentPoliceSprite].texture;
+			
 			spriteCounter = 0;
 		}
 	}
