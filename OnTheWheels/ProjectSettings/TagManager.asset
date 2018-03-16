@@ -85,3 +85,6 @@ TagManager:
   - name: Buildings
     uniqueID: 870412163
     locked: 0
+  - name: HUD
+    uniqueID: 1843036239
+    locked: 0
