@@ -214,7 +214,7 @@ public class MapController : MonoBehaviour {
 			GameObject.FindGameObjectWithTag ("Camera2").GetComponent<CameraController> ().target = Cop.transform;
 			GameObject.FindGameObjectWithTag ("Camera2").GetComponent<Camera> ().rect = new Rect (0.5f, 0f, 0.5f, 1f);
 			GameObject.FindGameObjectWithTag("MiniMapCamera2").GetComponent<CameraController>().target = Cop.transform;
-			GameObject.FindGameObjectWithTag("MiniCar2").GetComponent<RawImage>().texture = Cop.GetComponent<CarController>().sprite.texture;
+			//GameObject.FindGameObjectWithTag("MiniCar2").GetComponent<RawImage>().texture = Cop.GetComponent<CarController>().sprite.texture;
 		} else {
 			// Disables Camera 2
 			GameObject.FindGameObjectWithTag ("Camera2").GetComponent<CameraController> ().gameObject.SetActive (false);
@@ -226,7 +226,6 @@ public class MapController : MonoBehaviour {
 		// Powerups
 		for (int i = 0; i < powerUpsPositions.Count; i++) {
 			string typeName = powerUpsTypes[Random.Range (0, powerUpsTypes.Length)];
-			typeName = "Rocket";
 			Powerup = GameObject.Instantiate(Resources.Load(typeName) as GameObject);
 			Powerup.AddComponent<Rotation> ();
 			Powerup.transform.position = powerUpsPositions[i];
