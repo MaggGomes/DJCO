@@ -245,7 +245,14 @@ public class CarController : MonoBehaviour {
 
 		// Turning
 		float turnRadius = distanceBetweenAxles / Mathf.Sin(Mathf.Deg2Rad * turningAngle * (turn/50));
-		rb2d.angularVelocity = rb2d.velocity.magnitude / turnRadius;
+		if (Vector2.Dot(rb2d.transform.up, rb2d.velocity.normalized) >= 0) {
+			rb2d.angularVelocity = rb2d.velocity.magnitude / turnRadius;
+		}
+		else {
+			rb2d.angularVelocity = -rb2d.velocity.magnitude / turnRadius;
+		}
+
+
 
         // change broken transparency
 		brokenSprite.color = new Color(1f, 1f,1f, (this.maxLifePoints-this.lifePoints)/1000);
