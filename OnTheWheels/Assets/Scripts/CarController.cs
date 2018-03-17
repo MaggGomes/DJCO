@@ -54,6 +54,7 @@ public class CarController : MonoBehaviour {
     public KeyCode handbrakeKey = KeyCode.Space;
 	public KeyCode nitroKey = KeyCode.RightControl;
 	public KeyCode rocketKey = KeyCode.X;
+	public KeyCode pauseKey = KeyCode.P;
     
 
     public Rigidbody2D rb2d;
@@ -80,12 +81,14 @@ public class CarController : MonoBehaviour {
 	public float flamesTimer = 0;
 
 	public bool hasRocket = false;
+	public bool isPaused = false;
 	public RocketController RC;
 
 	public GameObject singlePlayerWin;
 	public GameObject singlePlayerĹose;
 	public GameObject multiPlayerWin;
 	public GameObject multiPlayerLose;
+	public GameObject pauseGame;
 	public bool end = false;
 
 	public bool rocketBlitz;
@@ -112,8 +115,21 @@ public class CarController : MonoBehaviour {
 	{
         if (playerControlled)
         {
+			if (Input.GetKeyUp(pauseKey))
+			{
+				if (isPaused) {
+					isPaused = false;
+					pauseGame.SetActive (false);
+					Time.timeScale = 1;
+				} else {
+					isPaused = true;
+					pauseGame.SetActive (true);
+					Time.timeScale = 0;
+				}
+			}
+
             // Throttle controls
-            if (Input.GetKey(throttleKey))
+            else if (Input.GetKey(throttleKey))
             {
                 throttle = 1;
             }
@@ -445,5 +461,10 @@ public class CarController : MonoBehaviour {
 		KeyCode tmp = leftKey;
 		leftKey = rightKey;
 		rightKey = tmp;
+	}
+	public void  Resume() {
+		Time.timeScale = 1;
+		isPaused = true;
+		pauseGame.SetActive (false);
 	}
 }

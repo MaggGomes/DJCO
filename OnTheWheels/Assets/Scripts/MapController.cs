@@ -169,6 +169,7 @@ public class MapController : MonoBehaviour {
 		GameObject singlePlayerĹose = GameObject.FindGameObjectWithTag ("SinglePlayerLose");
 		GameObject multiPlayerWin = GameObject.FindGameObjectWithTag ("MultiPlayerWin");
 		GameObject multiPlayerLose = GameObject.FindGameObjectWithTag ("MultiPlayerLose");
+		GameObject pauseGame = GameObject.FindGameObjectWithTag ("PauseGame");
 
 		// Car Initialization
 		policeSprites[0] = Resources.Load<Sprite> ("Cars/Police1");
@@ -199,6 +200,7 @@ public class MapController : MonoBehaviour {
 		Cop.GetComponent<CarController> ().multiPlayerWin = multiPlayerWin;
 		Cop.GetComponent<CarController> ().multiPlayerLose = multiPlayerLose;
 		Cop.GetComponent<CarController> ().rocketBlitz = rocketBlitz;
+		Cop.GetComponent<CarController> ().pauseGame = pauseGame;
 		if (!CopHumanController) {
 			Cop.SetActive (false);
 		}
@@ -227,11 +229,13 @@ public class MapController : MonoBehaviour {
 		Player.GetComponent<CarController> ().multiPlayerWin = multiPlayerWin;
 		Player.GetComponent<CarController> ().multiPlayerLose = multiPlayerLose;
 		Player.GetComponent<CarController> ().rocketBlitz = rocketBlitz;
+		Player.GetComponent<CarController> ().pauseGame = pauseGame;
 
 		singlePlayerWin.SetActive(false);
 		singlePlayerĹose.SetActive(false);
 		multiPlayerWin.SetActive(false);
 		multiPlayerLose.SetActive(false);
+		pauseGame.SetActive (false);
 
 
 		// Camera Assignment

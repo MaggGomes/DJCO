@@ -35,6 +35,7 @@ TagManager:
   - MultiPlayerLose
   - ChooseCarMenu
   - Cutscene
+  - PauseGame
   layers:
   - Default
   - TransparentFX
