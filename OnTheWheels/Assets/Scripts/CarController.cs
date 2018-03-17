@@ -85,6 +85,10 @@ public class CarController : MonoBehaviour {
 	public GameObject multiPlayerWin;
 	public GameObject multiPlayerLose;
 
+	public bool rocketBlitz;
+	public float rocketBlitzTimer = 0;
+	public float rocketBlitzInterval = 1f;
+
 	void Start ()
 	{
         Player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -178,7 +182,6 @@ public class CarController : MonoBehaviour {
 			if (Input.GetKey (rocketKey)) {
 				if (hasRocket) {
 					RC.Launch ();
-					hasRocket = false;
 				}
 			}
         }
@@ -228,6 +231,18 @@ public class CarController : MonoBehaviour {
 			immunityTimer -= Time.deltaTime;
 			if (immunityTimer <= 0) {
 				gameObject.GetComponent<SpriteRenderer> ().color = Color.white;
+			}
+		}
+		if (!hasRocket) {
+			if (rocketBlitzTimer > 0) {
+				rocketBlitzTimer -= Time.deltaTime;
+			} else {
+				hasRocket = true;
+				GameObject Rocket = GameObject.Instantiate(Resources.Load("RocketObject") as GameObject);
+				RC = Rocket.AddComponent<RocketController> ();
+				RC.Car = this;
+				Physics2D.IgnoreCollision (RC.GetComponent<Collider2D> (), GetComponent<Collider2D> ());
+				rocketBlitzTimer = rocketBlitzInterval;
 			}
 		}
     }

@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameModeMenu : MonoBehaviour {
 
     public bool CopHumanController = false;
+	public bool RocketBlitz = false;
 
     public static MapController.Car[] cars;
 
@@ -35,6 +36,12 @@ public class GameModeMenu : MonoBehaviour {
 		SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex + 1);
 	}
 
+	public void PlayRocketBlitzGame() {
+		MapController.CopHumanController = true;
+		RocketBlitz = true;
+		SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex + 1);
+	}
+
     public void SetCopHumanController(bool bl)
     {
         CopHumanController = bl;
@@ -46,12 +53,17 @@ public class GameModeMenu : MonoBehaviour {
         selectedCar = cars[selectedCarIndex];
     }
 
+	public void SetRocketBlitz(bool bl)
+	{
+		RocketBlitz = true;
+	}
 
     public void StartGame()
     {
         MapController.CopHumanController = CopHumanController;
         MapController.selectedCar = selectedCar;
 		MapController.policeCar = policeCar;
+		MapController.rocketBlitz = RocketBlitz;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

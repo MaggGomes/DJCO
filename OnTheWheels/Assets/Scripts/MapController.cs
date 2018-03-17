@@ -76,10 +76,10 @@ public class MapController : MonoBehaviour {
 		"InstantNitro",
 		"InstantSlowDown",
 		"Shield",
-		"Rocket",
 		"Shield",
 		"Switch",
-		"SwitchOpp"
+		"SwitchOpp",
+		"Rocket"
 	};
 	static List<Vector3> powerUpsPositions = new List<Vector3>(new Vector3[]{
         new Vector3(2670,  800,  0),
@@ -156,6 +156,11 @@ public class MapController : MonoBehaviour {
 	public GameObject HUD2;
     
 	// ========================================================================================
+	// Game Mode
+
+	public static bool rocketBlitz = false;
+
+	// ========================================================================================
 	// Scene
 
     void Start ()
@@ -193,6 +198,7 @@ public class MapController : MonoBehaviour {
 		Cop.GetComponent<CarController> ().singlePlayerĹose = singlePlayerĹose;
 		Cop.GetComponent<CarController> ().multiPlayerWin = multiPlayerWin;
 		Cop.GetComponent<CarController> ().multiPlayerLose = multiPlayerLose;
+		Cop.GetComponent<CarController> ().rocketBlitz = rocketBlitz;
 
 		Player.transform.position = playerStartingPositions[scenarioIndex].Position;
 		Player.transform.rotation = playerStartingPositions[scenarioIndex].Rotation;
@@ -217,6 +223,7 @@ public class MapController : MonoBehaviour {
 		Player.GetComponent<CarController> ().singlePlayerĹose = singlePlayerĹose;
 		Player.GetComponent<CarController> ().multiPlayerWin = multiPlayerWin;
 		Player.GetComponent<CarController> ().multiPlayerLose = multiPlayerLose;
+		Player.GetComponent<CarController> ().rocketBlitz = rocketBlitz;
 
 		singlePlayerWin.SetActive(false);
 		singlePlayerĹose.SetActive(false);
@@ -249,8 +256,12 @@ public class MapController : MonoBehaviour {
 
 
 		// Powerups
+		int nPowerUps = powerUpsTypes.Length;
+		if (rocketBlitz) {
+			nPowerUps--;
+		}
 		for (int i = 0; i < powerUpsPositions.Count; i++) {
-			string typeName = powerUpsTypes[Random.Range (0, powerUpsTypes.Length)];
+			string typeName = powerUpsTypes[Random.Range (0, nPowerUps)];
 			Powerup = GameObject.Instantiate(Resources.Load(typeName) as GameObject);
 			Powerup.AddComponent<Rotation> ();
 			Powerup.transform.position = powerUpsPositions[i];
@@ -278,14 +289,12 @@ public class MapController : MonoBehaviour {
 		HUD2.GetComponent<HUDController> ().Opponent = Player;
 		if(Cop.GetComponent<CarController> ().playerControlled)
 			HUD2.GetComponent<HUDController> ().Camera = GameObject.FindGameObjectWithTag("Camera2").GetComponent<CameraController>();
-    }
+	}
 
 
 	void Update () {
 		timeCounter += Time.deltaTime;
 		spriteCounter += Time.deltaTime;
-
-
 	}
 
 
