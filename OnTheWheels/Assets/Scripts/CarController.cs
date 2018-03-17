@@ -84,6 +84,7 @@ public class CarController : MonoBehaviour {
 	public GameObject singlePlayerĹose;
 	public GameObject multiPlayerWin;
 	public GameObject multiPlayerLose;
+	public bool end = false;
 
 	public bool rocketBlitz;
 	public float rocketBlitzTimer = 0;
@@ -378,6 +379,7 @@ public class CarController : MonoBehaviour {
 		}
 
 		if (other.gameObject.tag == "End" && !isCop) {
+			end = true;
 			this.GameOver();
 		}
     }
@@ -392,6 +394,8 @@ public class CarController : MonoBehaviour {
 				lifePoints = minLifePoints;
 				if (!isCop) {
 					this.GameOver ();
+				} else {
+					this.transform.position = new Vector3 (2082, -4350, 180);
 				}
 			} else if (lifePoints > maxLifePoints) {
 				lifePoints = maxLifePoints;
@@ -402,7 +406,23 @@ public class CarController : MonoBehaviour {
     }
 
 	public void GameOver(){
-		singlePlayerWin.SetActive (true);
+		if (!MapController.CopHumanController) {
+			if (!isCop) {
+				if (lifePoints <= 0)
+					singlePlayerĹose.SetActive (true);
+				else {
+					singlePlayerWin.SetActive (true);
+				}
+			}
+		} else {
+			if (!isCop) {
+				if (lifePoints <= 0)
+					multiPlayerLose.SetActive (true);
+				else {
+					multiPlayerWin.SetActive (true);
+				}
+			}
+		}
 	}
 
 	public void switchControls() {
