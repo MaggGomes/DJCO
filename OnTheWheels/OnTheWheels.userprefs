@@ -1,23 +1,14 @@
-﻿<Properties StartupItem="OnTheWheels.csproj">
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-<<<<<<< HEAD
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\HUD\HUDController.cs">
-=======
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GUI\GameModeMenu.cs">
->>>>>>> e75ad900f138b9c7489972fc2b6fe519df5177ae
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\MapController.cs">
     <Files>
-      <File FileName="Assets\Scripts\CameraController.cs" Line="15" Column="24" />
-      <File FileName="Assets\Scripts\CarController.cs" Line="382" Column="13" />
-      <File FileName="Assets\Scripts\MapController.cs" Line="172" Column="36" />
-      <File FileName="Assets\Scripts\HUD\HUDController.cs" Line="1" Column="1" />
-<<<<<<< HEAD
-=======
+      <File FileName="Assets\Scripts\HUD\HUDController.cs" Line="46" Column="5" />
       <File FileName="Assets\Scripts\CameraController.cs" Line="18" Column="1" />
       <File FileName="Assets\Scripts\GUI\GameModeMenu.cs" Line="7" Column="2" />
-      <File FileName="Assets\Scripts\CarController.cs" Line="236" Column="4" />
-      <File FileName="Assets\Scripts\RocketController.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\CarController.cs" Line="258" Column="36" />
+      <File FileName="Assets\Scripts\RocketController.cs" Line="56" Column="25" />
       <File FileName="Assets\Scripts\GUI\MainMenu.cs" Line="1" Column="1" />
->>>>>>> e75ad900f138b9c7489972fc2b6fe519df5177ae
+      <File FileName="Assets\Scripts\MapController.cs" Line="208" Column="64" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
