@@ -234,7 +234,7 @@ public class CarController : MonoBehaviour {
 				gameObject.GetComponent<SpriteRenderer> ().color = Color.white;
 			}
 		}
-		if (!hasRocket) {
+		if (!hasRocket && rocketBlitz) {
 			if (rocketBlitzTimer > 0) {
 				rocketBlitzTimer -= Time.deltaTime;
 			} else {
