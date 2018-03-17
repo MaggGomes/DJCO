@@ -99,7 +99,8 @@ public class CarController : MonoBehaviour {
 	{
         Player = GameObject.FindGameObjectWithTag("Player").transform;
 		rb2d = GetComponent<Rigidbody2D> ();
-		GetComponent<SpriteRenderer> ().sprite = sprite;
+		if(!isCop)
+			GetComponent<SpriteRenderer> ().sprite = MapController.selectedCar.sprite;
         brokenSprite = this.transform.Find("BrokenSprite").gameObject.GetComponent<SpriteRenderer>();
 		flames = this.transform.Find ("Flames").gameObject.GetComponent<SpriteRenderer> ();
         flamesAudio = this.transform.Find("Flames").gameObject.GetComponent<AudioSource>();
