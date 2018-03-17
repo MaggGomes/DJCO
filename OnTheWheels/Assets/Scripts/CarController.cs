@@ -396,16 +396,20 @@ public class CarController : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D other)
     {
 		if(shieldTimer <= 0 && immunityTimer <= 0){
+			//Debug.log ((rb2d.velocity).magnitude / this.resistance);
 			lifePoints -= (rb2d.velocity).magnitude / this.resistance;
 			gameObject.GetComponent<SpriteRenderer> ().color = Color.red;
             crashAudio.Play();
-
+			Debug.Log (lifePoints);
 			if (lifePoints < minLifePoints) {
+				Debug.Log ("chegou");
 				lifePoints = minLifePoints;
 				if (!isCop) {
 					this.GameOver ();
 				} else {
 					this.transform.position = new Vector3 (2082, -4350, 180);
+					lifePoints = 1000f;
+					Debug.Log (lifePoints);
 				}
 			} else if (lifePoints > maxLifePoints) {
 				lifePoints = maxLifePoints;
