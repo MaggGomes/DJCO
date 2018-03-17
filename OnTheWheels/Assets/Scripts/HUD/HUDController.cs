@@ -25,6 +25,7 @@ public class HUDController : MonoBehaviour {
 	public CameraController Camera;
 	public Vector2 ArrowOrigin;
 	public int pickedUp = 0;
+	public bool SinglePlayer = false;
 
 	// Use this for initialization
 	void Start () {
@@ -34,11 +35,16 @@ public class HUDController : MonoBehaviour {
 		Image PlayerArrowImage = PlayerArrow.AddComponent<Image> ();
 		PlayerArrowImage.sprite = Resources.Load<Sprite> ("HUD/playerarrow");
 		PlayerArrow.GetComponent<RectTransform> ().SetParent (gameObject.transform);
-		PlayerArrow.SetActive (true);
+		PlayerArrow.SetActive (!SinglePlayer);
 		RectTransform rt = PlayerArrow.GetComponent<RectTransform> ();
 		rt.sizeDelta = new Vector2(35, 50);
 		if (gameObject.tag == "HUD1") {
-			ArrowOrigin = new Vector2(-200, 0);		}
+			if (SinglePlayer) {
+				ArrowOrigin = new Vector2 (0, 0);	
+			} else {
+				ArrowOrigin = new Vector2(-200, 0);		
+			}
+		}
 		else if (gameObject.tag == "HUD2") {
 			ArrowOrigin = new Vector2(200, 0);
 		}

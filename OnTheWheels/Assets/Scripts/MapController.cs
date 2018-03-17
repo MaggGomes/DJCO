@@ -285,6 +285,8 @@ public class MapController : MonoBehaviour {
 		HUD1.GetComponent<HUDController> ().Opponent = Cop;
 		HUD1.GetComponent<HUDController> ().Camera = GameObject.FindGameObjectWithTag("Camera1").GetComponent<CameraController>();
 		HUD1.GetComponent<HUDController> ().CheatSheets = Cheatsheets;
+		HUD1.GetComponent<HUDController> ().SinglePlayer = !CopHumanController;
+
 		HUD2.GetComponent<HUDController> ().Player = Cop;
 		HUD2.GetComponent<HUDController> ().Opponent = Player;
 		if(Cop.GetComponent<CarController> ().playerControlled)
