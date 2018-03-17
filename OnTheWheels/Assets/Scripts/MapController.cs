@@ -233,7 +233,6 @@ public class MapController : MonoBehaviour {
 		// Powerups
 		for (int i = 0; i < powerUpsPositions.Count; i++) {
 			string typeName = powerUpsTypes[Random.Range (0, powerUpsTypes.Length)];
-			typeName = "Shield";
 			Powerup = GameObject.Instantiate(Resources.Load(typeName) as GameObject);
 			Powerup.AddComponent<Rotation> ();
 			Powerup.transform.position = powerUpsPositions[i];

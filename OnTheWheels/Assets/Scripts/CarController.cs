@@ -59,6 +59,9 @@ public class CarController : MonoBehaviour {
     public Rigidbody2D rb2d;
 	private SpriteRenderer brokenSprite;
 	private SpriteRenderer flames;
+	private Sprite flameSprite;
+	private Sprite flameSprite2;
+	private bool flameSpriteSelector = false;
     private float throttle; // 1 forward; negative backwards; 0 static
 	private float turn; // 1 left; -1 right; 0 none
 	private int handbrake; // 1 on; 0 off
@@ -72,6 +75,7 @@ public class CarController : MonoBehaviour {
 	public float shieldTimer = 0;
 	public float switchControlsTimer = 0;
 	public float immunityTimer = 0;
+	public float flamesTimer = 0;
 
 	public bool hasRocket = false;
 	public RocketController RC;
@@ -83,6 +87,8 @@ public class CarController : MonoBehaviour {
 		GetComponent<SpriteRenderer> ().sprite = sprite;
         brokenSprite = this.transform.Find("BrokenSprite").gameObject.GetComponent<SpriteRenderer>();
 		flames = this.transform.Find ("Flames").gameObject.GetComponent<SpriteRenderer> ();
+		flameSprite = Resources.Load<Sprite> ("Cars/flames");
+		flameSprite2 = Resources.Load<Sprite> ("Cars/flames2");
 		terrain = new Dictionary<string, bool> ();
 		terrain.Add ("dirt", false);
 		terrain.Add ("road", false);
@@ -145,6 +151,18 @@ public class CarController : MonoBehaviour {
             {
                 nitro = 1;
 				flames.enabled = true;
+				if (flamesTimer <= 0) {
+					if (flameSpriteSelector) {
+						flames.sprite = flameSprite;
+						flameSpriteSelector = !flameSpriteSelector;
+					} else {
+						flames.sprite = flameSprite2;
+						flameSpriteSelector = !flameSpriteSelector;
+					}
+					flamesTimer = 0.2f;
+				} else {
+					flamesTimer -= Time.deltaTime;
+				}
             }
             else
             {

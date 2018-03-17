@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4102132164171442}
   - component: {fileID: 212671612965768980}
   - component: {fileID: 50288297551195476}
-  - component: {fileID: 60641676849877034}
+  - component: {fileID: 60350287435116622}
   m_Layer: 0
   m_Name: RocketObject
   m_TagString: Cheatsheet
@@ -62,7 +62,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 3
---- !u!60 &60641676849877034
+--- !u!60 &60350287435116622
 PolygonCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -78,7 +78,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 11.4, y: 24.8}
+    oldSize: {x: 19, y: 41.333332}
     newSize: {x: 2.5, y: 2.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -86,23 +86,23 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.275, y: -0.049999997}
-      - {x: 0.225, y: 0.049999997}
-      - {x: 0.175, y: 0.47}
-      - {x: 0.065, y: 0.62}
-      - {x: -0.055, y: 0.62}
-      - {x: -0.145, y: 0.51}
-      - {x: -0.185, y: 0.37}
-      - {x: -0.195, y: 0.08}
-      - {x: -0.275, y: -0.01}
-      - {x: -0.285, y: -0.17999999}
-      - {x: -0.285, y: -0.52}
-      - {x: -0.195, y: -0.51}
-      - {x: -0.065, y: -0.62}
-      - {x: 0.044999998, y: -0.62}
-      - {x: 0.125, y: -0.53999996}
-      - {x: 0.285, y: -0.51}
-      - {x: 0.285, y: -0.16}
+    - - {x: 9.166667, y: -1.6666667}
+      - {x: 7.5, y: 1.6666667}
+      - {x: 5.8333335, y: 15.666667}
+      - {x: 2.1666667, y: 20.666668}
+      - {x: -1.8333334, y: 20.666668}
+      - {x: -4.8333335, y: 17}
+      - {x: -6.166667, y: 12.333334}
+      - {x: -6.5, y: 2.6666667}
+      - {x: -9.166667, y: -0.33333334}
+      - {x: -9.5, y: -6}
+      - {x: -9.5, y: -17.333334}
+      - {x: -6.5, y: -17}
+      - {x: -2.1666667, y: -20.666668}
+      - {x: 1.5, y: -20.666668}
+      - {x: 4.166667, y: -18}
+      - {x: 9.5, y: -17}
+      - {x: 9.5, y: -5.3333335}
 --- !u!212 &212671612965768980
 SpriteRenderer:
   m_ObjectHideFlags: 1
