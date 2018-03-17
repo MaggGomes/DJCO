@@ -80,6 +80,11 @@ public class CarController : MonoBehaviour {
 	public bool hasRocket = false;
 	public RocketController RC;
 
+	public GameObject singlePlayerWin;
+	public GameObject singlePlayerĹose;
+	public GameObject multiPlayerWin;
+	public GameObject multiPlayerLose;
+
 	void Start ()
 	{
         Player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -382,7 +387,7 @@ public class CarController : MonoBehaviour {
     }
 
 	public void GameOver(){
-		GameObject.FindGameObjectWithTag ("SinglePlayerWin").GetComponent<Mask> ().gameObject.SetActive (true);
+		singlePlayerWin.SetActive (true);
 	}
 
 	public void switchControls() {

@@ -160,6 +160,11 @@ public class MapController : MonoBehaviour {
 
     void Start ()
     {
+		GameObject singlePlayerWin = GameObject.FindGameObjectWithTag ("SinglePlayerWin");
+		GameObject singlePlayerĹose = GameObject.FindGameObjectWithTag ("SinglePlayerLose");
+		GameObject multiPlayerWin = GameObject.FindGameObjectWithTag ("MultiPlayerWin");
+		GameObject multiPlayerLose = GameObject.FindGameObjectWithTag ("MultiPlayerLose");
+
 		// Car Initialization
 		policeSprites[0] = Resources.Load<Sprite> ("Cars/Police1");
 		policeSprites[1] = Resources.Load<Sprite> ("Cars/Police2");
@@ -184,6 +189,10 @@ public class MapController : MonoBehaviour {
 		Cop.AddComponent<PolygonCollider2D> ();
         Cop.tag = "Cop";
         Cop.name = "Cop";
+		Cop.GetComponent<CarController> ().singlePlayerWin = singlePlayerWin;
+		Cop.GetComponent<CarController> ().singlePlayerĹose = singlePlayerĹose;
+		Cop.GetComponent<CarController> ().multiPlayerWin = multiPlayerWin;
+		Cop.GetComponent<CarController> ().multiPlayerLose = multiPlayerLose;
 
 		Player.transform.position = playerStartingPositions[scenarioIndex].Position;
 		Player.transform.rotation = playerStartingPositions[scenarioIndex].Rotation;
@@ -204,6 +213,15 @@ public class MapController : MonoBehaviour {
 		Player.AddComponent<PolygonCollider2D> ();
         Player.tag = "Player";
         Player.name = "Player";
+		Player.GetComponent<CarController> ().singlePlayerWin = singlePlayerWin;
+		Player.GetComponent<CarController> ().singlePlayerĹose = singlePlayerĹose;
+		Player.GetComponent<CarController> ().multiPlayerWin = multiPlayerWin;
+		Player.GetComponent<CarController> ().multiPlayerLose = multiPlayerLose;
+
+		singlePlayerWin.SetActive(false);
+		singlePlayerĹose.SetActive(false);
+		multiPlayerWin.SetActive(false);
+		multiPlayerLose.SetActive(false);
 
 
 		// Camera Assignment
