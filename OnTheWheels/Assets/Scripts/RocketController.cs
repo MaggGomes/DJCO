@@ -8,7 +8,7 @@ public class RocketController : MonoBehaviour {
 	public CarController Car;
 	private bool destroyed = false;
 	private Vector3 velocity;
-	private float rocketSpeed = 20f;
+	private float rocketSpeed = 15f;
 	private float destroyTime = 0.5f;
 	private Sprite destroyedSprite;
 	private CarController CarHit = null;
@@ -41,7 +41,9 @@ public class RocketController : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D other) {
 		launched = true;
-		Car.hasRocket = false;
+		if (Car != null) {
+			Car.hasRocket = false;
+		}
 		Car = null;
 		destroyed = true;
 		gameObject.GetComponent<SpriteRenderer>().sprite = destroyedSprite;
