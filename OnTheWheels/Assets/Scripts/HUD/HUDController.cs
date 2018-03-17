@@ -124,7 +124,7 @@ public class HUDController : MonoBehaviour {
 	private void HandleBar(){
 		//Debug.Log (car.GetComponent<CarController> ().lifePoints);
 		fillAmountHealthBar = car.GetComponent<CarController> ().lifePoints / 1000;
-		fillAmountNitroBar = car.GetComponent<CarController> ().nitroTank;
+		fillAmountNitroBar = car.GetComponent<CarController> ().nitroTank/1.5f;
 		cheatSheetCounter = car.GetComponent<CarController> ().cheatsheetsCaught;
 
 		//Debug.Log (car.GetComponent<CarController> ().nitroTank);
