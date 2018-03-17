@@ -433,6 +433,8 @@ public class CarController : MonoBehaviour {
 				}
 			}
 		}
+
+		Time.timeScale = 0;
 	}
 
 	public void switchControls() {
