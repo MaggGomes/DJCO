@@ -360,7 +360,10 @@ public class CarController : MonoBehaviour {
 		if (other.gameObject.tag == "SwitchOpp") {
 			Destroy(other.gameObject);
 			if (tag == "Player") {
-				GameObject.FindGameObjectWithTag ("Cop").GetComponent<CarController> ().switchControls ();
+				GameObject Cop = GameObject.FindGameObjectWithTag ("Cop");
+				if (Cop != null) {
+					Cop.GetComponent<CarController> ().switchControls ();
+				}
 			}
 			else if (tag == "Cop") {
 				GameObject.FindGameObjectWithTag ("Player").GetComponent<CarController> ().switchControls ();
