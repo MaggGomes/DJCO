@@ -98,7 +98,7 @@ public class HUDController : MonoBehaviour {
 			}
 		}
 
-		if (pickedUp == CheatSheets.Count) {
+		if (pickedUp == CheatSheets.Count && CheatSheets.Count != 0) {
 			if (!EndArrow.activeInHierarchy) {
 				EndArrow.SetActive (true);
 			}
