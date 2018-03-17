@@ -199,6 +199,9 @@ public class MapController : MonoBehaviour {
 		Cop.GetComponent<CarController> ().multiPlayerWin = multiPlayerWin;
 		Cop.GetComponent<CarController> ().multiPlayerLose = multiPlayerLose;
 		Cop.GetComponent<CarController> ().rocketBlitz = rocketBlitz;
+		if (!CopHumanController) {
+			Cop.SetActive (false);
+		}
 
 		Player.transform.position = playerStartingPositions[scenarioIndex].Position;
 		Player.transform.rotation = playerStartingPositions[scenarioIndex].Rotation;
