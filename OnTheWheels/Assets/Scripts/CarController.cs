@@ -191,6 +191,9 @@ public class CarController : MonoBehaviour {
 		}
 		if (shieldTimer > 0) {
 			shieldTimer -= Time.deltaTime;
+			if (shieldTimer <= 0) {
+				gameObject.GetComponent<SpriteRenderer> ().color = Color.white;
+			}
 		}
 		if (switchControlsTimer > 0) {
 			switchControlsTimer -= Time.deltaTime;
@@ -200,6 +203,9 @@ public class CarController : MonoBehaviour {
 		}
 		if (immunityTimer > 0) {
 			immunityTimer -= Time.deltaTime;
+			if (immunityTimer <= 0) {
+				gameObject.GetComponent<SpriteRenderer> ().color = Color.white;
+			}
 		}
     }
 
@@ -297,6 +303,7 @@ public class CarController : MonoBehaviour {
 		if (other.gameObject.tag == "Shield") {
 			Destroy(other.gameObject);
 			this.shieldTimer = 5f;
+			gameObject.GetComponent<SpriteRenderer> ().color = Color.green;
 		}
 
 		if (other.gameObject.tag == "Switch") {
@@ -341,6 +348,7 @@ public class CarController : MonoBehaviour {
     {
 		if(shieldTimer <= 0 && immunityTimer <= 0){
 			lifePoints -= (rb2d.velocity).magnitude / this.resistance;
+			gameObject.GetComponent<SpriteRenderer> ().color = Color.red;
 
 			if (lifePoints < minLifePoints) {
 				lifePoints = minLifePoints;
