@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class HUDController : MonoBehaviour {
 
@@ -130,5 +131,9 @@ public class HUDController : MonoBehaviour {
 
 		if (!car.GetComponent<CarController>().isCop && cheatSheetCounter.ToString() != cheatSheetText.text)
 			cheatSheetText.text = cheatSheetCounter.ToString();
+	}
+
+	public void Restart(){
+		SceneManager.LoadScene ("Menu", LoadSceneMode.Single);
 	}
 }
