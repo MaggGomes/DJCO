@@ -63,5 +63,7 @@ public class RocketController : MonoBehaviour {
 	public void Launch() {
 		velocity = Car.rb2d.transform.up;
 		launched = true;
-	}
+        AudioSource audio = GetComponent<AudioSource>();
+        audio.Play();
+    }
 }

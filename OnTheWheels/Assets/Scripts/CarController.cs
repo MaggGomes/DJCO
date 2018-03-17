@@ -59,7 +59,9 @@ public class CarController : MonoBehaviour {
     public Rigidbody2D rb2d;
 	private SpriteRenderer brokenSprite;
 	private SpriteRenderer flames;
-	private Sprite flameSprite;
+    private AudioSource flamesAudio;
+    private AudioSource crashAudio;
+    private Sprite flameSprite;
 	private Sprite flameSprite2;
 	private bool flameSpriteSelector = false;
     private float throttle; // 1 forward; negative backwards; 0 static
@@ -97,7 +99,9 @@ public class CarController : MonoBehaviour {
 		GetComponent<SpriteRenderer> ().sprite = sprite;
         brokenSprite = this.transform.Find("BrokenSprite").gameObject.GetComponent<SpriteRenderer>();
 		flames = this.transform.Find ("Flames").gameObject.GetComponent<SpriteRenderer> ();
-		flameSprite = Resources.Load<Sprite> ("Cars/flames");
+        flamesAudio = this.transform.Find("Flames").gameObject.GetComponent<AudioSource>();
+        crashAudio = this.gameObject.GetComponents<AudioSource>()[1];
+            flameSprite = Resources.Load<Sprite> ("Cars/flames");
 		flameSprite2 = Resources.Load<Sprite> ("Cars/flames2");
 		terrain = new Dictionary<string, bool> ();
 		terrain.Add ("dirt", false);
@@ -172,12 +176,14 @@ public class CarController : MonoBehaviour {
 					flamesTimer = 0.2f;
 				} else {
 					flamesTimer -= Time.deltaTime;
-				}
+                }
+                flamesAudio.mute = false;
             }
             else
             {
 				nitro = 0;
 				flames.enabled = false;
+                flamesAudio.mute = true;
             }
 
 			if (Input.GetKey (rocketKey)) {
@@ -389,6 +395,7 @@ public class CarController : MonoBehaviour {
 		if(shieldTimer <= 0 && immunityTimer <= 0){
 			lifePoints -= (rb2d.velocity).magnitude / this.resistance;
 			gameObject.GetComponent<SpriteRenderer> ().color = Color.red;
+            crashAudio.Play();
 
 			if (lifePoints < minLifePoints) {
 				lifePoints = minLifePoints;
