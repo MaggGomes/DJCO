@@ -364,7 +364,7 @@ public class CarController : MonoBehaviour {
     }
 
 	public void GameOver(){
-		SceneManager.LoadScene ("GameOver", LoadSceneMode.Single);
+		GameObject.FindGameObjectWithTag ("SinglePlayerWin").GetComponent<Mask> ().gameObject.SetActive (true);
 	}
 
 	public void switchControls() {
