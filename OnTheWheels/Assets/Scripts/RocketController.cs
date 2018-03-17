@@ -8,18 +8,19 @@ public class RocketController : MonoBehaviour {
 	public CarController Car;
 	private bool destroyed = false;
 	private Vector3 velocity;
-	private float rocketSpeed = 10f;
+	private float rocketSpeed = 20f;
 	private float destroyTime = 0.5f;
 	private Sprite destroyedSprite;
 	private CarController CarHit = null;
+	private bool launched = false;
 
 	void Start () {
 		velocity = new Vector3 (0, 0, 0);
 		destroyedSprite = Resources.Load<Sprite> ("Cars/Explosion");
 	}
 
-	void Update () {
-		if (Car != null) {
+	void LateUpdate () {
+		if (!launched) {
 			transform.rotation = Car.transform.rotation;
 			transform.position = Car.transform.position;
 		} else if (!destroyed) {
@@ -39,6 +40,9 @@ public class RocketController : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D(Collision2D other) {
+		launched = true;
+		Car.hasRocket = false;
+		Car = null;
 		destroyed = true;
 		gameObject.GetComponent<SpriteRenderer>().sprite = destroyedSprite;
 		if (other.gameObject.tag == "Cop" || other.gameObject.tag == "Player") {
@@ -56,6 +60,6 @@ public class RocketController : MonoBehaviour {
 
 	public void Launch() {
 		velocity = Car.rb2d.transform.up;
-		Car = null;
+		launched = true;
 	}
 }
