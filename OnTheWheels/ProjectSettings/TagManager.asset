@@ -33,6 +33,8 @@ TagManager:
   - SinglePlayerLose
   - MultiPlayerWin
   - MultiPlayerLose
+  - ChooseCarMenu
+  - Cutscene
   layers:
   - Default
   - TransparentFX
